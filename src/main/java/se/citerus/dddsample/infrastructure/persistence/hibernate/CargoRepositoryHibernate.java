@@ -20,8 +20,8 @@ public class CargoRepositoryHibernate extends HibernateRepository implements Car
   }
 
   public Cargo find(TrackingId tid) {
-    return (Cargo) getSession().
-      createQuery("from Cargo where trackingId = :tid").
+    return getSession().
+      createQuery("from Cargo where trackingId = :tid", Cargo.class).
       setParameter("tid", tid).
       uniqueResult();
   }

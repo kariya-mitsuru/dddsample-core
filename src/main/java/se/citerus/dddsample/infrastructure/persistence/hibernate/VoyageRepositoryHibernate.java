@@ -17,8 +17,8 @@ public class VoyageRepositoryHibernate extends HibernateRepository implements Vo
   }
 
   public Voyage find(final VoyageNumber voyageNumber) {
-    return (Voyage) getSession().
-      createQuery("from Voyage where voyageNumber = :vn").
+    return getSession().
+      createQuery("from Voyage where voyageNumber = :vn", Voyage.class).
       setParameter("vn", voyageNumber).
       uniqueResult();
   }
