@@ -11,7 +11,23 @@
 
   <!-- JMS messaging -->
 
-  <amq:connectionFactory id="jmsConnectionFactory" brokerURL="vm://localhost?broker.persistent=false&amp;broker.useJmx=false"/>
+  <amq:broker persistent="false" useJmx="false">
+    <amq:systemUsage>
+      <amq:systemUsage>
+        <amq:memoryUsage>
+          <amq:memoryUsage limit="20 mb"/>
+        </amq:memoryUsage>
+        <amq:storeUsage>
+          <amq:storeUsage limit="1 gb"/>
+        </amq:storeUsage>
+        <amq:tempUsage>
+          <amq:tempUsage limit="100 mb"/>
+        </amq:tempUsage>
+      </amq:systemUsage>
+    </amq:systemUsage>
+  </amq:broker>
+
+  <amq:connectionFactory id="jmsConnectionFactory" brokerURL="vm://localhost"/>
 
   <amq:queue id="cargoHandledQueue" name="CargoHandledQueue" physicalName="CargoHandledQueue"/>
   <amq:queue id="misdirectedCargoQueue" name="MisdirectedCargoQueue" physicalName="MisdirectedCargoQueue"/>
