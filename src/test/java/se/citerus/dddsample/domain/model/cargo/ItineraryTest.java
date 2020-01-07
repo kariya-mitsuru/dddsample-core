@@ -114,7 +114,7 @@ public class ItineraryTest {
       List<Leg> legs = null;
       new Itinerary(legs);
       fail("Null itinerary is not OK");
-    } catch (IllegalArgumentException iae) {
+    } catch (NullPointerException iae) {
       //Expected
     }
   }

@@ -20,7 +20,6 @@ public class UnLocodeTest {
     assertInvalid("AAAAAA");
     assertInvalid("22AAA");
     assertInvalid("AA111");
-    assertInvalid(null);
   }
 
   @Test
@@ -58,6 +57,14 @@ public class UnLocodeTest {
       new UnLocode(unlocode);
       fail("The combination [" + unlocode + "] is not a valid UnLocode");
     } catch (IllegalArgumentException expected) {}
+  }
+
+  @Test
+  public void testNull() {
+    try {
+      new UnLocode(null);
+      fail("The combination [null] is not a valid UnLocode");
+    } catch (NullPointerException expected) {}
   }
 
 }

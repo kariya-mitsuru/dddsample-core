@@ -11,7 +11,7 @@ public class TrackingIdTest {
     try {
       new TrackingId(null);
       fail("Should not accept null constructor arguments");
-    } catch (IllegalArgumentException expected) {}
+    } catch (NullPointerException expected) {}
   }
 
 }
