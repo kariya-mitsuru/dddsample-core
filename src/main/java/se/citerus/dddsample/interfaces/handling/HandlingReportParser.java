@@ -1,7 +1,7 @@
 package se.citerus.dddsample.interfaces.handling;
 
 import com.aggregator.HandlingReport;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import se.citerus.dddsample.domain.model.cargo.TrackingId;
 import se.citerus.dddsample.domain.model.handling.HandlingEvent;
 import se.citerus.dddsample.domain.model.location.UnLocode;
