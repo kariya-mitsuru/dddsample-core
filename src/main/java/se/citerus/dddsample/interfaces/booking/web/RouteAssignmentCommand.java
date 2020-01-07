@@ -1,7 +1,7 @@
 package se.citerus.dddsample.interfaces.booking.web;
 
-import org.apache.commons.collections.Factory;
-import org.apache.commons.collections.ListUtils;
+import org.apache.commons.collections4.Factory;
+import org.apache.commons.collections4.ListUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +11,7 @@ public class RouteAssignmentCommand {
 
   private String trackingId;
   private List<LegCommand> legs = ListUtils.lazyList(
-    new ArrayList(), LegCommand.factory()
+    new ArrayList<LegCommand>(), LegCommand.factory()
   );
 
   public String getTrackingId() {
@@ -77,7 +77,7 @@ public class RouteAssignmentCommand {
       this.toDate = toDate;
     }
 
-    public static Factory factory() {
+    public static Factory<LegCommand> factory() {
       return LegCommand::new;
     }
 

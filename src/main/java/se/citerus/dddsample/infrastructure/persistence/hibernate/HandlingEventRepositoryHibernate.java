@@ -21,7 +21,7 @@ public class HandlingEventRepositoryHibernate extends HibernateRepository implem
   @Override
   public HandlingHistory lookupHandlingHistoryOfCargo(final TrackingId trackingId) {
     return new HandlingHistory(getSession().createQuery(
-            "from HandlingEvent where cargo.trackingId = :tid").
+            "from HandlingEvent where cargo.trackingId = :tid", HandlingEvent.class).
             setParameter("tid", trackingId).
             list()
     );

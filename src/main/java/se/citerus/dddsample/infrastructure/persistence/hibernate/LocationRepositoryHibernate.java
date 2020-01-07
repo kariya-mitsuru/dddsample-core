@@ -11,14 +11,14 @@ import java.util.List;
 public class LocationRepositoryHibernate extends HibernateRepository implements LocationRepository {
 
   public Location find(final UnLocode unLocode) {
-    return (Location) getSession().
-      createQuery("from Location where unLocode = ?0").
+    return getSession().
+      createQuery("from Location where unLocode = ?0", Location.class).
       setParameter(0, unLocode).
       uniqueResult();
   }
 
   public List<Location> findAll() {
-    return getSession().createQuery("from Location").list();
+    return getSession().createQuery("from Location", Location.class).list();
   }
 
 }

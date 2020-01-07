@@ -54,7 +54,7 @@ public abstract class ValueObjectSupport<T extends ValueObject<T>> implements Va
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
-    return sameValueAs((T) o);
+    return EqualsBuilder.reflectionEquals(this, o, false);
   }
 
 }

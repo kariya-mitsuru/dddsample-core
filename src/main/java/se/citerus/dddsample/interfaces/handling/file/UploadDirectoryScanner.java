@@ -49,7 +49,7 @@ public class UploadDirectoryScanner extends TimerTask implements InitializingBea
   }
 
   private void parse(final File file) throws IOException {
-    final List<String> lines = FileUtils.readLines(file);
+    final List<String> lines = FileUtils.readLines(file, "UTF-8");
     final List<String> rejectedLines = new ArrayList<String>();
     for (String line : lines) {
       try {
