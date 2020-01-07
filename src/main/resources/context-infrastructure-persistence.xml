@@ -33,22 +33,22 @@
   <tx:annotation-driven transaction-manager="transactionManager"/>
 
   <bean id="cargoRepository" class="se.citerus.dddsample.infrastructure.persistence.hibernate.CargoRepositoryHibernate">
-    <property name="sessionFactory" ref="sessionFactory"/>
+    <constructor-arg name="sessionFactory" ref="sessionFactory"/>
   </bean>
 
   <bean id="handlingEventRepository"
         class="se.citerus.dddsample.infrastructure.persistence.hibernate.HandlingEventRepositoryHibernate">
-    <property name="sessionFactory" ref="sessionFactory"/>
+    <constructor-arg name="sessionFactory" ref="sessionFactory"/>
   </bean>
 
   <bean id="voyageRepository"
         class="se.citerus.dddsample.infrastructure.persistence.hibernate.VoyageRepositoryHibernate">
-    <property name="sessionFactory" ref="sessionFactory"/>
+    <constructor-arg name="sessionFactory" ref="sessionFactory"/>
   </bean>
 
   <bean id="locationRepository"
         class="se.citerus.dddsample.infrastructure.persistence.hibernate.LocationRepositoryHibernate">
-    <property name="sessionFactory" ref="sessionFactory"/>
+    <constructor-arg name="sessionFactory" ref="sessionFactory"/>
   </bean>
 
 </beans>
