@@ -3,10 +3,10 @@ package se.citerus.dddsample.domain.shared;
 /**
  * AND specification, used to create a new specifcation that is the AND of two other specifications.
  */
-public class AndSpecification<T> extends AbstractSpecification<T> {
+public class AndSpecification<T> implements Specification<T> {
 
-  private Specification<T> spec1;
-  private Specification<T> spec2;
+  private final Specification<T> spec1;
+  private final Specification<T> spec2;
 
   /**
    * Create a new AND specification based on two other spec.

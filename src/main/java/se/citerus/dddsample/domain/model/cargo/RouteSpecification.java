@@ -4,7 +4,7 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import se.citerus.dddsample.domain.model.location.Location;
-import se.citerus.dddsample.domain.shared.AbstractSpecification;
+import se.citerus.dddsample.domain.shared.Specification;
 import se.citerus.dddsample.domain.shared.ValueObject;
 
 import java.util.Date;
@@ -14,7 +14,7 @@ import java.util.Date;
  * and the arrival deadline.
  * 
  */
-public class RouteSpecification extends AbstractSpecification<Itinerary> implements ValueObject<RouteSpecification> {
+public class RouteSpecification implements Specification<Itinerary>, ValueObject<RouteSpecification> {
 
   private Location origin;
   private Location destination;

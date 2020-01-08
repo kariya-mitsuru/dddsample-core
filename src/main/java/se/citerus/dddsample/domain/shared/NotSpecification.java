@@ -3,9 +3,9 @@ package se.citerus.dddsample.domain.shared;
 /**
  * NOT decorator, used to create a new specifcation that is the inverse (NOT) of the given spec.
  */
-public class NotSpecification<T> extends AbstractSpecification<T> {
+public class NotSpecification<T> implements Specification<T> {
 
-  private Specification<T> spec1;
+  private final Specification<T> spec1;
 
   /**
    * Create a new NOT specification based on another spec.

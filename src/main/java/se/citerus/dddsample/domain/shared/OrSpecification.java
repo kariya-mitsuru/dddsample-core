@@ -3,10 +3,10 @@ package se.citerus.dddsample.domain.shared;
 /**
  * OR specification, used to create a new specifcation that is the OR of two other specifications.
  */
-public class OrSpecification<T> extends AbstractSpecification<T> {
+public class OrSpecification<T> implements Specification<T> {
 
-  private Specification<T> spec1;
-  private Specification<T> spec2;
+  private final Specification<T> spec1;
+  private final Specification<T> spec2;
 
   /**
    * Create a new OR specification based on two other spec.
