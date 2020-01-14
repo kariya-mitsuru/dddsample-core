@@ -1,5 +1,6 @@
 package se.citerus.dddsample.domain.model.location;
 
+import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.Validate;
 import se.citerus.dddsample.domain.shared.ValueObject;
 
@@ -11,6 +12,7 @@ import java.util.regex.Pattern;
  * http://www.unece.org/cefact/locode/
  * http://www.unece.org/cefact/locode/DocColumnDescription.htm#LOCODE
  */
+@EqualsAndHashCode
 public final class UnLocode implements ValueObject<UnLocode> {
 
   private String unlocode;
@@ -37,26 +39,6 @@ public final class UnLocode implements ValueObject<UnLocode> {
    */
   public String idString() {
     return unlocode;
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    UnLocode other = (UnLocode) o;
-
-    return sameValueAs(other);
-  }
-
-  @Override
-  public int hashCode() {
-    return unlocode.hashCode();
-  }
-
-  @Override
-  public boolean sameValueAs(UnLocode other) {
-    return other != null && this.unlocode.equals(other.unlocode);
   }
 
   @Override

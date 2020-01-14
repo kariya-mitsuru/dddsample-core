@@ -1,5 +1,8 @@
 package se.citerus.dddsample.domain.model.location;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.Validate;
 import se.citerus.dddsample.domain.shared.Entity;
 
@@ -10,9 +13,12 @@ import se.citerus.dddsample.domain.shared.Entity;
  * It is uniquely identified by a UN Locode.
  *
  */
+@RequiredArgsConstructor
 public final class Location implements Entity<Location> {
 
+  @NonNull @Getter
   private UnLocode unLocode;
+  @NonNull @Getter
   private String name;
 
   /**
@@ -21,35 +27,6 @@ public final class Location implements Entity<Location> {
   public static final Location UNKNOWN = new Location(
     new UnLocode("XXXXX"), "Unknown location"
   );
-
-  /**
-   * Package-level constructor, visible for test only.
-   *
-   * @param unLocode UN Locode
-   * @param name     location name
-   * @throws IllegalArgumentException if the UN Locode or name is null
-   */
-  Location(final UnLocode unLocode, final String name) {
-    Validate.notNull(unLocode);
-    Validate.notNull(name);
-    
-    this.unLocode = unLocode;
-    this.name = name;
-  }
-
-  /**
-   * @return UN Locode for this location.
-   */
-  public UnLocode unLocode() {
-    return unLocode;
-  }
-
-  /**
-   * @return Actual name of this location, e.g. "Stockholm".
-   */
-  public String name() {
-    return name;
-  }
 
   /**
    * @param object to compare
