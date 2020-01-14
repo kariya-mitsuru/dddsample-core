@@ -1,8 +1,8 @@
 package se.citerus.dddsample.domain.model.cargo;
 
+import lombok.Getter;
+import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import static se.citerus.dddsample.domain.model.cargo.RoutingStatus.*;
 import static se.citerus.dddsample.domain.model.cargo.TransportStatus.*;
 import se.citerus.dddsample.domain.model.handling.HandlingEvent;
@@ -20,15 +20,20 @@ import java.util.Iterator;
  * the customer requirement (RouteSpecification) and the plan (Itinerary). 
  *
  */
+@EqualsAndHashCode
 public class Delivery implements ValueObject<Delivery> {
 
+  @Getter
   private TransportStatus transportStatus;
   private Location lastKnownLocation;
   private Voyage currentVoyage;
   private boolean misdirected;
   private Date eta;
+  @Getter
   private HandlingActivity nextExpectedActivity;
+  @Getter
   private boolean isUnloadedAtDestination;
+  @Getter
   private RoutingStatus routingStatus;
   private Date calculatedAt;
   private HandlingEvent lastEvent;
@@ -91,13 +96,6 @@ public class Delivery implements ValueObject<Delivery> {
   }
 
   /**
-   * @return Transport status
-   */
-  public TransportStatus transportStatus() {
-    return transportStatus;
-  }
-
-  /**
    * @return Last known location of the cargo, or Location.UNKNOWN if the delivery history is empty.
    */
   public Location lastKnownLocation() {
@@ -135,27 +133,6 @@ public class Delivery implements ValueObject<Delivery> {
     } else {
       return ETA_UNKOWN;
     }
-  }
-
-  /**
-   * @return The next expected handling activity.
-   */
-  public HandlingActivity nextExpectedActivity() {
-    return nextExpectedActivity;
-  }
-
-  /**
-   * @return True if the cargo has been unloaded at the final destination.
-   */
-  public boolean isUnloadedAtDestination() {
-    return isUnloadedAtDestination;
-  }
-
-  /**
-   * @return Routing status.
-   */
-  public RoutingStatus routingStatus() {
-    return routingStatus;
   }
 
   /**
@@ -283,48 +260,6 @@ public class Delivery implements ValueObject<Delivery> {
 
   private boolean onTrack() {
     return routingStatus.equals(ROUTED) && !misdirected;
-  }
-
-  @Override
-  public boolean sameValueAs(final Delivery other) {
-    return other != null && new EqualsBuilder().
-      append(this.transportStatus, other.transportStatus).
-      append(this.lastKnownLocation, other.lastKnownLocation).
-      append(this.currentVoyage, other.currentVoyage).
-      append(this.misdirected, other.misdirected).
-      append(this.eta, other.eta).
-      append(this.nextExpectedActivity, other.nextExpectedActivity).
-      append(this.isUnloadedAtDestination, other.isUnloadedAtDestination).
-      append(this.routingStatus, other.routingStatus).
-      append(this.calculatedAt, other.calculatedAt).
-      append(this.lastEvent, other.lastEvent).
-      isEquals();
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    final Delivery other = (Delivery) o;
-
-    return sameValueAs(other);
-  }
-
-  @Override
-  public int hashCode() {
-    return new HashCodeBuilder().
-      append(transportStatus).
-      append(lastKnownLocation).
-      append(currentVoyage).
-      append(misdirected).
-      append(eta).
-      append(nextExpectedActivity).
-      append(isUnloadedAtDestination).
-      append(routingStatus).
-      append(calculatedAt).
-      append(lastEvent).
-      toHashCode();
   }
 
   Delivery() {

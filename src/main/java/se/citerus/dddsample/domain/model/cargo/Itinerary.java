@@ -1,5 +1,6 @@
 package se.citerus.dddsample.domain.model.cargo;
 
+import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.Validate;
 import se.citerus.dddsample.domain.model.handling.HandlingEvent;
 import se.citerus.dddsample.domain.model.location.Location;
@@ -13,6 +14,7 @@ import java.util.List;
  * An itinerary.
  *
  */
+@EqualsAndHashCode
 public class Itinerary implements ValueObject<Itinerary> {
 
   private List<Leg> legs = Collections.emptyList();
@@ -132,34 +134,11 @@ public class Itinerary implements ValueObject<Itinerary> {
     }
   }
 
-  /**
-   * @param other itinerary to compare
-   * @return <code>true</code> if the legs in this and the other itinerary are all equal.
-   */
-  @Override
-  public boolean sameValueAs(final Itinerary other) {
-    return other != null && legs.equals(other.legs);
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    final Itinerary itinerary = (Itinerary) o;
-
-    return sameValueAs(itinerary);
-  }
-
-  @Override
-  public int hashCode() {
-    return legs.hashCode();
-  }
-
   Itinerary() {
     // Needed by Hibernate
   }
 
   // Auto-generated surrogate key
+  @EqualsAndHashCode.Exclude
   private Long id;
 }

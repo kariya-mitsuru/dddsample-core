@@ -11,6 +11,6 @@ public class LegTest {
     try {
       new Leg(null,null,null,null,null);
       fail("Should not accept null constructor arguments");
-    } catch (IllegalArgumentException expected) {}
+    } catch (NullPointerException expected) {}
   }
 }

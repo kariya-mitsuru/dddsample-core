@@ -7,9 +7,4 @@ import se.citerus.dddsample.domain.shared.ValueObject;
  */
 public enum TransportStatus implements ValueObject<TransportStatus> {
   NOT_RECEIVED, IN_PORT, ONBOARD_CARRIER, CLAIMED, UNKNOWN;
-
-  @Override
-  public boolean sameValueAs(final TransportStatus other) {
-    return this.equals(other);
-  }
 }

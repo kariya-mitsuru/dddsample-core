@@ -1,5 +1,6 @@
 package se.citerus.dddsample.domain.model.cargo;
 
+import lombok.Getter;
 import org.apache.commons.lang3.Validate;
 
 import se.citerus.dddsample.domain.model.handling.HandlingHistory;
@@ -45,10 +46,14 @@ import se.citerus.dddsample.domain.shared.Entity;
  */
 public class Cargo implements Entity<Cargo> {
 
+  @Getter
   private TrackingId trackingId;
+  @Getter
   private Location origin;
+  @Getter
   private RouteSpecification routeSpecification;
   private Itinerary itinerary;
+  @Getter
   private Delivery delivery;
 
   public Cargo(final TrackingId trackingId, final RouteSpecification routeSpecification) {
@@ -67,42 +72,12 @@ public class Cargo implements Entity<Cargo> {
   }
 
   /**
-   * The tracking id is the identity of this entity, and is unique.
-   * 
-   * @return Tracking id.
-   */
-  public TrackingId trackingId() {
-    return trackingId;
-  }
-
-  /**
-   * @return Origin location.
-   */
-  public Location origin() {
-    return origin;
-  }
-
-  /**
-   * @return The delivery. Never null.
-   */
-  public Delivery delivery() {
-    return delivery;
-  }
-
-  /**
    * @return The itinerary. Never null.
    */
   public Itinerary itinerary() {
     return DomainObjectUtils.nullSafe(this.itinerary, Itinerary.EMPTY_ITINERARY);
   }
 
-  /**
-   * @return The route specification.
-   */
-  public RouteSpecification routeSpecification() {
-    return routeSpecification;
-  }
-  
   /**
    * Specifies a new route for this cargo.
    *

@@ -1,8 +1,10 @@
 package se.citerus.dddsample.domain.model.cargo;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import se.citerus.dddsample.domain.model.location.Location;
 import se.citerus.dddsample.domain.shared.Specification;
 import se.citerus.dddsample.domain.shared.ValueObject;
@@ -14,9 +16,12 @@ import java.util.Date;
  * and the arrival deadline.
  * 
  */
+@EqualsAndHashCode
 public class RouteSpecification implements Specification<Itinerary>, ValueObject<RouteSpecification> {
 
+  @Getter
   private Location origin;
+  @Getter
   private Location destination;
   private Date arrivalDeadline;
 
@@ -37,20 +42,6 @@ public class RouteSpecification implements Specification<Itinerary>, ValueObject
   }
 
   /**
-   * @return Specified origin location.
-   */
-  public Location origin() {
-    return origin;
-  }
-
-  /**
-   * @return Specfied destination location.
-   */
-  public Location destination() {
-    return destination;
-  }
-
-  /**
    * @return Arrival deadline.
    */
   public Date arrivalDeadline() {
@@ -63,34 +54,6 @@ public class RouteSpecification implements Specification<Itinerary>, ValueObject
            origin().sameIdentityAs(itinerary.initialDepartureLocation()) &&
            destination().sameIdentityAs(itinerary.finalArrivalLocation()) &&
            arrivalDeadline().after(itinerary.finalArrivalDate());
-  }
-
-  @Override
-  public boolean sameValueAs(final RouteSpecification other) {
-    return other != null && new EqualsBuilder().
-      append(this.origin, other.origin).
-      append(this.destination, other.destination).
-      append(this.arrivalDeadline, other.arrivalDeadline).
-      isEquals();
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    final RouteSpecification that = (RouteSpecification) o;
-
-    return sameValueAs(that);
-  }
-
-  @Override
-  public int hashCode() {
-    return new HashCodeBuilder().
-      append(this.origin).
-      append(this.destination).
-      append(this.arrivalDeadline).
-      toHashCode();
   }
 
   RouteSpecification() {
