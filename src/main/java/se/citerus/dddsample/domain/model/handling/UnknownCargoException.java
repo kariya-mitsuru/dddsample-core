@@ -1,20 +1,15 @@
 package se.citerus.dddsample.domain.model.handling;
 
+import lombok.RequiredArgsConstructor;
 import se.citerus.dddsample.domain.model.cargo.TrackingId;
 
 /**
  * Thrown when trying to register an event with an unknown tracking id.
  */
+@RequiredArgsConstructor
 public final class UnknownCargoException extends CannotCreateHandlingEventException {
 
   private final TrackingId trackingId;
-
-  /**
-   * @param trackingId cargo tracking id
-   */
-  public UnknownCargoException(final TrackingId trackingId) {
-    this.trackingId = trackingId;
-  }
 
   /**
    * {@inheritDoc}

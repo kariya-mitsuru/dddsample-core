@@ -1,8 +1,11 @@
 package se.citerus.dddsample.domain.model.handling;
 
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import se.citerus.dddsample.domain.model.cargo.Cargo;
 import se.citerus.dddsample.domain.model.location.Location;
 import se.citerus.dddsample.domain.model.voyage.Voyage;
@@ -28,19 +31,26 @@ import java.util.Date;
  * <p/>
  * All other events must be of {@link Type#RECEIVE}, {@link Type#CLAIM} or {@link Type#CUSTOMS}.
  */
+@EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public final class HandlingEvent implements DomainEvent<HandlingEvent> {
 
+  @Getter
   private Type type;
   private Voyage voyage;
+  @Getter
   private Location location;
   private Date completionTime;
+  @EqualsAndHashCode.Exclude
   private Date registrationTime;
+  @Getter
   private Cargo cargo;
 
   /**
    * Handling event type. Either requires or prohibits a carrier movement
    * association, it's never optional.
    */
+  @RequiredArgsConstructor
   public enum Type implements ValueObject<Type> {
     LOAD(true),
     UNLOAD(true),
@@ -48,23 +58,8 @@ public final class HandlingEvent implements DomainEvent<HandlingEvent> {
     CLAIM(false),
     CUSTOMS(false);
 
-    private final boolean voyageRequired;
-
-    /**
-     * Private enum constructor.
-     *
-     * @param voyageRequired whether or not a voyage is associated with this event type
-     */
-    private Type(final boolean voyageRequired) {
-      this.voyageRequired = voyageRequired;
-    }
-
-    /**
-     * @return True if a voyage association is required for this event type.
-     */
-    public boolean requiresVoyage() {
-      return voyageRequired;
-    }
+    @Getter
+    private final boolean requiresVoyage;
 
     /**
      * @return True if a voyage association is prohibited for this event type.
@@ -72,12 +67,6 @@ public final class HandlingEvent implements DomainEvent<HandlingEvent> {
     public boolean prohibitsVoyage() {
       return !requiresVoyage();
     }
-
-    @Override
-    public boolean sameValueAs(Type other) {
-      return other != null && this.equals(other);
-    }
-
   }
 
   /**
@@ -143,10 +132,6 @@ public final class HandlingEvent implements DomainEvent<HandlingEvent> {
     this.voyage = null;
   }
 
-  public Type type() {
-    return this.type;
-  }
-
   public Voyage voyage() {
     return DomainObjectUtils.nullSafe(this.voyage, Voyage.NONE);
   }
@@ -157,46 +142,6 @@ public final class HandlingEvent implements DomainEvent<HandlingEvent> {
 
   public Date registrationTime() {
     return new Date(this.registrationTime.getTime());
-  }
-
-  public Location location() {
-    return this.location;
-  }
-
-  public Cargo cargo() {
-    return this.cargo;
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    final HandlingEvent event = (HandlingEvent) o;
-
-    return sameEventAs(event);
-  }
-
-  @Override
-  public boolean sameEventAs(final HandlingEvent other) {
-    return other != null && new EqualsBuilder().
-      append(this.cargo, other.cargo).
-      append(this.voyage, other.voyage).
-      append(this.completionTime, other.completionTime).
-      append(this.location, other.location).
-      append(this.type, other.type).
-      isEquals();
-  }
-
-  @Override
-  public int hashCode() {
-    return new HashCodeBuilder().
-      append(cargo).
-      append(voyage).
-      append(completionTime).
-      append(location).
-      append(type).
-      toHashCode();
   }
 
   @Override
@@ -215,12 +160,8 @@ public final class HandlingEvent implements DomainEvent<HandlingEvent> {
     return builder.toString();
   }
 
-  HandlingEvent() {
-    // Needed by Hibernate
-  }
-
-
   // Auto-generated surrogate key
+  @EqualsAndHashCode.Exclude
   private Long id;
 
 }

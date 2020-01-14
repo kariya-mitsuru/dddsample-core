@@ -1,5 +1,6 @@
 package se.citerus.dddsample.domain.model.handling;
 
+import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.Validate;
 import se.citerus.dddsample.domain.shared.ValueObject;
 
@@ -10,6 +11,7 @@ import static java.util.Collections.sort;
 /**
  * The handling history of a cargo.
  */
+@EqualsAndHashCode
 public class HandlingHistory implements ValueObject<HandlingHistory> {
 
     private final List<HandlingEvent> handlingEvents;
@@ -43,25 +45,6 @@ public class HandlingHistory implements ValueObject<HandlingHistory> {
         } else {
             return distinctEvents.get(distinctEvents.size() - 1);
         }
-    }
-
-    @Override
-    public boolean sameValueAs(HandlingHistory other) {
-        return other != null && this.handlingEvents.equals(other.handlingEvents);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        final HandlingHistory other = (HandlingHistory) o;
-        return sameValueAs(other);
-    }
-
-    @Override
-    public int hashCode() {
-        return handlingEvents.hashCode();
     }
 
     private static final Comparator<HandlingEvent> BY_COMPLETION_TIME_COMPARATOR =
