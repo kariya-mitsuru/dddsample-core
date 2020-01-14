@@ -1,5 +1,8 @@
 package se.citerus.dddsample.domain.model.voyage;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.Validate;
 import se.citerus.dddsample.domain.model.location.Location;
 import se.citerus.dddsample.domain.shared.Entity;
@@ -11,9 +14,12 @@ import java.util.List;
 /**
  * A Voyage.
  */
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Voyage implements Entity<Voyage> {
 
+  @Getter
   private VoyageNumber voyageNumber;
+  @Getter
   private Schedule schedule;
 
   // Null object pattern
@@ -27,20 +33,6 @@ public class Voyage implements Entity<Voyage> {
 
     this.voyageNumber = voyageNumber;
     this.schedule = schedule;
-  }
-
-  /**
-   * @return Voyage number.
-   */
-  public VoyageNumber voyageNumber() {
-    return voyageNumber;
-  }
-
-  /**
-   * @return Schedule.
-   */
-  public Schedule schedule() {
-    return schedule;
   }
 
   @Override
@@ -67,10 +59,6 @@ public class Voyage implements Entity<Voyage> {
   @Override
   public String toString() {
     return "Voyage " + voyageNumber;
-  }
-
-  Voyage() {
-    // Needed by Hibernate
   }
 
   // Needed by Hibernate

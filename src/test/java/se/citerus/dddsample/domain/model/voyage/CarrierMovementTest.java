@@ -16,12 +16,12 @@ public class CarrierMovementTest {
     try {
       new CarrierMovement(null, null, new Date(), new Date());
       fail("Should not accept null constructor arguments");
-    } catch (IllegalArgumentException expected) {}
+    } catch (NullPointerException expected) {}
 
     try {
       new CarrierMovement(STOCKHOLM, null, new Date(), new Date());
       fail("Should not accept null constructor arguments");
-    } catch (IllegalArgumentException expected) {}
+    } catch (NullPointerException expected) {}
 
     // Legal
     new CarrierMovement(STOCKHOLM, HAMBURG, new Date(), new Date());
