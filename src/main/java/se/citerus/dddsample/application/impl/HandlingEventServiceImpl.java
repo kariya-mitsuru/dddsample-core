@@ -1,7 +1,7 @@
 package se.citerus.dddsample.application.impl;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.transaction.annotation.Transactional;
 import se.citerus.dddsample.application.ApplicationEvents;
 import se.citerus.dddsample.application.HandlingEventService;
@@ -15,20 +15,13 @@ import se.citerus.dddsample.domain.model.voyage.VoyageNumber;
 
 import java.util.Date;
 
+@RequiredArgsConstructor
+@CommonsLog
 public class HandlingEventServiceImpl implements HandlingEventService {
 
-  private final ApplicationEvents applicationEvents;
   private final HandlingEventRepository handlingEventRepository;
+  private final ApplicationEvents applicationEvents;
   private final HandlingEventFactory handlingEventFactory;
-  private final Log logger = LogFactory.getLog(HandlingEventServiceImpl.class);
-
-  public HandlingEventServiceImpl(final HandlingEventRepository handlingEventRepository,
-                                  final ApplicationEvents applicationEvents,
-                                  final HandlingEventFactory handlingEventFactory) {
-    this.handlingEventRepository = handlingEventRepository;
-    this.applicationEvents = applicationEvents;
-    this.handlingEventFactory = handlingEventFactory;
-  }
 
   @Override
   @Transactional(rollbackFor = CannotCreateHandlingEventException.class)
@@ -54,7 +47,7 @@ public class HandlingEventServiceImpl implements HandlingEventService {
     /* Publish an event stating that a cargo has been handled. */
     applicationEvents.cargoWasHandled(event);
 
-    logger.info("Registered handling event");
+    log.info("Registered handling event");
   }
 
 }

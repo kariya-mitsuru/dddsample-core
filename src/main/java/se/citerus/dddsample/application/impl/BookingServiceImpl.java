@@ -1,7 +1,7 @@
 package se.citerus.dddsample.application.impl;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.transaction.annotation.Transactional;
 import se.citerus.dddsample.application.BookingService;
 import se.citerus.dddsample.domain.model.cargo.*;
@@ -14,20 +14,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+@CommonsLog
+@RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
 
   private final CargoRepository cargoRepository;
   private final LocationRepository locationRepository;
   private final RoutingService routingService;
-  private final Log logger = LogFactory.getLog(getClass());
-
-  public BookingServiceImpl(final CargoRepository cargoRepository,
-                            final LocationRepository locationRepository,
-                            final RoutingService routingService) {
-    this.cargoRepository = cargoRepository;
-    this.locationRepository = locationRepository;
-    this.routingService = routingService;
-  }
 
   @Override
   @Transactional
@@ -43,7 +36,7 @@ public class BookingServiceImpl implements BookingService {
     final Cargo cargo = new Cargo(trackingId, routeSpecification);
 
     cargoRepository.store(cargo);
-    logger.info("Booked new cargo with tracking id " + cargo.trackingId().idString());
+    log.info("Booked new cargo with tracking id " + cargo.trackingId().idString());
 
     return cargo.trackingId();
   }
@@ -71,7 +64,7 @@ public class BookingServiceImpl implements BookingService {
     cargo.assignToRoute(itinerary);
     cargoRepository.store(cargo);
 
-    logger.info("Assigned cargo " + trackingId + " to new route");
+    log.info("Assigned cargo " + trackingId + " to new route");
   }
 
   @Override
@@ -86,7 +79,7 @@ public class BookingServiceImpl implements BookingService {
     cargo.specifyNewRoute(routeSpecification);
 
     cargoRepository.store(cargo);
-    logger.info("Changed destination for cargo " + trackingId + " to " + routeSpecification.destination());
+    log.info("Changed destination for cargo " + trackingId + " to " + routeSpecification.destination());
   }
 
 }
