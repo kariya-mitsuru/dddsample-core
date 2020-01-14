@@ -82,10 +82,11 @@ public class DDDSampleApplicationContext {
 
     @Bean
     public RoutingService routingService() {
-        ExternalRoutingService routingService = new ExternalRoutingService();
-        routingService.setGraphTraversalService(graphTraversalService);
-        routingService.setLocationRepository(locationRepository);
-        routingService.setVoyageRepository(voyageRepository);
+        ExternalRoutingService routingService = new ExternalRoutingService(
+            graphTraversalService,
+            locationRepository,
+            voyageRepository
+        );
         return routingService;
     }
 

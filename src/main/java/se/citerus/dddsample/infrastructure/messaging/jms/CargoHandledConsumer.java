@@ -1,7 +1,7 @@
 package se.citerus.dddsample.infrastructure.messaging.jms;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.apachecommons.CommonsLog;
 import se.citerus.dddsample.application.CargoInspectionService;
 import se.citerus.dddsample.domain.model.cargo.TrackingId;
 
@@ -16,10 +16,11 @@ import javax.jms.TextMessage;
  * This is a programmatic hook into the JMS infrastructure to
  * make cargo inspection message-driven.
  */
+@RequiredArgsConstructor
+@CommonsLog
 public class CargoHandledConsumer implements MessageListener {
 
-  private CargoInspectionService cargoInspectionService;
-  private final Log logger = LogFactory.getLog(getClass());
+  private final CargoInspectionService cargoInspectionService;
 
   @Override  
   public void onMessage(final Message message) {
@@ -29,11 +30,7 @@ public class CargoHandledConsumer implements MessageListener {
       
       cargoInspectionService.inspectCargo(new TrackingId(trackingidString));
     } catch (Exception e) {
-      logger.error(e, e);
+      log.error(e, e);
     }
-  }
-
-  public void setCargoInspectionService(CargoInspectionService cargoInspectionService) {
-    this.cargoInspectionService = cargoInspectionService;
   }
 }

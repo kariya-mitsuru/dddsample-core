@@ -48,20 +48,20 @@
   </bean>
 
   <bean id="applicationEvents" class="se.citerus.dddsample.infrastructure.messaging.jms.JmsApplicationEventsImpl">
-    <property name="jmsOperations" ref="jmsOperations"/>
-    <property name="cargoHandledQueue" ref="cargoHandledQueue"/>
-    <property name="misdirectedCargoQueue" ref="misdirectedCargoQueue"/>
-    <property name="deliveredCargoQueue" ref="deliveredCargoQueue"/>
-    <property name="rejectedRegistrationAttemptsQueue" ref="rejectedRegistrationAttemptsQueue"/>
-    <property name="handlingEventQueue" ref="handlingEventRegistrationAttemptQueue"/>
+    <constructor-arg name="jmsOperations" ref="jmsOperations"/>
+    <constructor-arg name="cargoHandledQueue" ref="cargoHandledQueue"/>
+    <constructor-arg name="misdirectedCargoQueue" ref="misdirectedCargoQueue"/>
+    <constructor-arg name="deliveredCargoQueue" ref="deliveredCargoQueue"/>
+    <constructor-arg name="rejectedRegistrationAttemptsQueue" ref="rejectedRegistrationAttemptsQueue"/>
+    <constructor-arg name="handlingEventQueue" ref="handlingEventRegistrationAttemptQueue"/>
   </bean>
 
   <bean id="cargoHandledConsumer" class="se.citerus.dddsample.infrastructure.messaging.jms.CargoHandledConsumer">
-    <property name="cargoInspectionService" ref="cargoInspectionService"/>
+    <constructor-arg name="cargoInspectionService" ref="cargoInspectionService"/>
   </bean>
 
   <bean id="handlingEventRegistrationAttemptConsumer" class="se.citerus.dddsample.infrastructure.messaging.jms.HandlingEventRegistrationAttemptConsumer">
-    <property name="handlingEventService" ref="handlingEventService"/>
+    <constructor-arg name="handlingEventService" ref="handlingEventService"/>
   </bean>
 
   <bean id="simpleLoggingConsumer" class="se.citerus.dddsample.infrastructure.messaging.jms.SimpleLoggingConsumer"/>

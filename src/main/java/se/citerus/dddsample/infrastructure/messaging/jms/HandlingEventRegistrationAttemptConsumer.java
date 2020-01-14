@@ -1,7 +1,7 @@
 package se.citerus.dddsample.infrastructure.messaging.jms;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.apachecommons.CommonsLog;
 import se.citerus.dddsample.application.HandlingEventService;
 import se.citerus.dddsample.interfaces.handling.HandlingEventRegistrationAttempt;
 
@@ -14,10 +14,11 @@ import javax.jms.ObjectMessage;
  * proper registration.
  * 
  */
+@RequiredArgsConstructor
+@CommonsLog
 public class HandlingEventRegistrationAttemptConsumer implements MessageListener {
 
-  private HandlingEventService handlingEventService;
-  private static final Log logger = LogFactory.getLog(HandlingEventRegistrationAttemptConsumer.class);
+  private final HandlingEventService handlingEventService;
 
   @Override
   public void onMessage(final Message message) {
@@ -32,12 +33,7 @@ public class HandlingEventRegistrationAttemptConsumer implements MessageListener
         attempt.getType()
       );
     } catch (Exception e) {
-      logger.error(e, e);
+      log.error(e, e);
     }
   }
-
-  public void setHandlingEventService(HandlingEventService handlingEventService) {
-    this.handlingEventService = handlingEventService;
-  }
-
 }
