@@ -1,6 +1,8 @@
 package se.citerus.dddsample.domain.model.cargo;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.Validate;
 import se.citerus.dddsample.domain.model.handling.HandlingEvent;
 import se.citerus.dddsample.domain.model.location.Location;
@@ -15,6 +17,7 @@ import java.util.List;
  *
  */
 @EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Itinerary implements ValueObject<Itinerary> {
 
   private List<Leg> legs = Collections.emptyList();
@@ -132,10 +135,6 @@ public class Itinerary implements ValueObject<Itinerary> {
     } else {
       return legs.get(legs.size() - 1);
     }
-  }
-
-  Itinerary() {
-    // Needed by Hibernate
   }
 
   // Auto-generated surrogate key
