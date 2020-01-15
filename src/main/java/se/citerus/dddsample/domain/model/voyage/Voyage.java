@@ -18,7 +18,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class Voyage implements Entity<Voyage> {
 
   @NonNull @Getter @EqualsAndHashCode.Include

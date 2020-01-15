@@ -22,9 +22,9 @@ public class SampleVoyages {
     public static final Voyage CM006 = createVoyage("CM006", HAMBURG, HANGZOU);
 
     private static Voyage createVoyage(String id, Location from, Location to) {
-        return new Voyage(new VoyageNumber(id), new Schedule(Collections.singletonList(
-                new CarrierMovement(from, to, new Date(), new Date())
-        )));
+        return new Voyage.Builder(new VoyageNumber(id), from).
+                addMovement(to, new Date(), new Date()).
+                build();
     }
 
     // TODO CM00[1-6] and createVoyage are deprecated. Remove and refactor tests.
