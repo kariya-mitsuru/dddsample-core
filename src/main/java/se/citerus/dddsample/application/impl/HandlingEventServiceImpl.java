@@ -15,8 +15,8 @@ import se.citerus.dddsample.domain.model.voyage.VoyageNumber;
 
 import java.util.Date;
 
-@RequiredArgsConstructor
 @CommonsLog
+@RequiredArgsConstructor
 public class HandlingEventServiceImpl implements HandlingEventService {
 
   private final HandlingEventRepository handlingEventRepository;
