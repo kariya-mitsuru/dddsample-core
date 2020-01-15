@@ -18,10 +18,10 @@ import se.citerus.dddsample.domain.shared.ValueObject;
  * happen to a cargo in the future.
  *
  */
-@EqualsAndHashCode
-@RequiredArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor
 public class HandlingActivity implements ValueObject<HandlingActivity> {
 
   // TODO make HandlingActivity a part of HandlingEvent too? There is some overlap. 
