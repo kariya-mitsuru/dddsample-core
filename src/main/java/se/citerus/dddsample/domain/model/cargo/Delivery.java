@@ -1,8 +1,11 @@
 package se.citerus.dddsample.domain.model.cargo;
 
-import lombok.Getter;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
-import org.apache.commons.lang3.Validate;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
 import static se.citerus.dddsample.domain.model.cargo.RoutingStatus.*;
 import static se.citerus.dddsample.domain.model.cargo.TransportStatus.*;
 import se.citerus.dddsample.domain.model.handling.HandlingEvent;
@@ -21,6 +24,7 @@ import java.util.Iterator;
  *
  */
 @EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Delivery implements ValueObject<Delivery> {
 
   @Getter
@@ -50,9 +54,7 @@ public class Delivery implements ValueObject<Delivery> {
    * @param itinerary itinerary
    * @return An up to date delivery
    */
-  Delivery updateOnRouting(RouteSpecification routeSpecification, Itinerary itinerary) {
-    Validate.notNull(routeSpecification, "Route specification is required");
-
+  Delivery updateOnRouting(@NonNull RouteSpecification routeSpecification, Itinerary itinerary) {
     return new Delivery(this.lastEvent, itinerary, routeSpecification);
   }
 
@@ -65,10 +67,7 @@ public class Delivery implements ValueObject<Delivery> {
    * @param handlingHistory delivery history
    * @return An up to date delivery.
    */
-  static Delivery derivedFrom(RouteSpecification routeSpecification, Itinerary itinerary, HandlingHistory handlingHistory) {
-    Validate.notNull(routeSpecification, "Route specification is required");
-    Validate.notNull(handlingHistory, "Delivery history is required");
-
+  static Delivery derivedFrom(@NonNull RouteSpecification routeSpecification, Itinerary itinerary, @NonNull HandlingHistory handlingHistory) {
     final HandlingEvent lastEvent = handlingHistory.mostRecentlyCompletedEvent();
 
     return new Delivery(lastEvent, itinerary, routeSpecification);
@@ -260,9 +259,5 @@ public class Delivery implements ValueObject<Delivery> {
 
   private boolean onTrack() {
     return routingStatus.equals(ROUTED) && !misdirected;
-  }
-
-  Delivery() {
-    // Needed by Hibernate
   }
 }
