@@ -1,6 +1,9 @@
 package se.citerus.dddsample.domain.model.cargo;
 
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import se.citerus.dddsample.domain.model.handling.HandlingHistory;
@@ -44,9 +47,11 @@ import se.citerus.dddsample.domain.shared.Entity;
  * in port etc), are captured in this aggregate.
  *
  */
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Cargo implements Entity<Cargo> {
 
-  @Getter
+  @Getter @EqualsAndHashCode.Include
   private TrackingId trackingId;
   @Getter
   private Location origin;
@@ -124,39 +129,8 @@ public class Cargo implements Entity<Cargo> {
   }
 
   @Override
-  public boolean sameIdentityAs(final Cargo other) {
-    return other != null && trackingId.sameValueAs(other.trackingId);
-  }
-
-  /**
-   * @param object to compare
-   * @return True if they have the same identity
-   * @see #sameIdentityAs(Cargo)
-   */
-  @Override
-  public boolean equals(final Object object) {
-    if (this == object) return true;
-    if (object == null || getClass() != object.getClass()) return false;
-
-    final Cargo other = (Cargo) object;
-    return sameIdentityAs(other);
-  }
-
-  /**
-   * @return Hash code of tracking id.
-   */
-  @Override
-  public int hashCode() {
-    return trackingId.hashCode();
-  }
-
-  @Override
   public String toString() {
     return trackingId.toString();
-  }
-
-  Cargo() {
-    // Needed by Hibernate
   }
 
   // Auto-generated surrogate key

@@ -12,6 +12,8 @@ public interface Entity<T> {
    * @param other The other entity.
    * @return true if the identities are the same, regardless of other attributes.
    */
-  boolean sameIdentityAs(T other);
+  default boolean sameIdentityAs(T other) {
+    return this.equals(other);
+  }
 
 }

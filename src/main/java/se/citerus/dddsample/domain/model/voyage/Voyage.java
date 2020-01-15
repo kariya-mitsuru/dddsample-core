@@ -1,9 +1,11 @@
 package se.citerus.dddsample.domain.model.voyage;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.Validate;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import se.citerus.dddsample.domain.model.location.Location;
 import se.citerus.dddsample.domain.shared.Entity;
 
@@ -14,47 +16,20 @@ import java.util.List;
 /**
  * A Voyage.
  */
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor
 public class Voyage implements Entity<Voyage> {
 
-  @Getter
+  @NonNull @Getter @EqualsAndHashCode.Include
   private VoyageNumber voyageNumber;
-  @Getter
+  @NonNull @Getter
   private Schedule schedule;
 
   // Null object pattern
   public static final Voyage NONE = new Voyage(
     new VoyageNumber(""), Schedule.EMPTY
   );
-
-  public Voyage(final VoyageNumber voyageNumber, final Schedule schedule) {
-    Validate.notNull(voyageNumber, "Voyage number is required");
-    Validate.notNull(schedule, "Schedule is required");
-
-    this.voyageNumber = voyageNumber;
-    this.schedule = schedule;
-  }
-
-  @Override
-  public int hashCode() {
-    return voyageNumber.hashCode();
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null) return false;
-    if (!(o instanceof Voyage)) return false;
-
-    final Voyage that = (Voyage) o;
-
-    return sameIdentityAs(that);
-  }
-
-  @Override
-  public boolean sameIdentityAs(Voyage other) {
-    return other != null && this.voyageNumber().sameValueAs(other.voyageNumber());
-  }
 
   @Override
   public String toString() {
@@ -74,10 +49,7 @@ public class Voyage implements Entity<Voyage> {
     private final VoyageNumber voyageNumber;
     private Location departureLocation;
 
-    public Builder(final VoyageNumber voyageNumber, final Location departureLocation) {
-      Validate.notNull(voyageNumber, "Voyage number is required");
-      Validate.notNull(departureLocation, "Departure location is required");
-
+    public Builder(@NonNull final VoyageNumber voyageNumber, @NonNull final Location departureLocation) {
       this.voyageNumber = voyageNumber;
       this.departureLocation = departureLocation;
     }
