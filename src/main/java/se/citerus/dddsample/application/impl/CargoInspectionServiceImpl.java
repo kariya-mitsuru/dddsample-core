@@ -1,8 +1,8 @@
 package se.citerus.dddsample.application.impl;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
-import org.apache.commons.lang3.Validate;
 import org.springframework.transaction.annotation.Transactional;
 import se.citerus.dddsample.application.ApplicationEvents;
 import se.citerus.dddsample.application.CargoInspectionService;
@@ -22,8 +22,7 @@ public class CargoInspectionServiceImpl implements CargoInspectionService {
 
   @Override
   @Transactional
-  public void inspectCargo(final TrackingId trackingId) {
-    Validate.notNull(trackingId, "Tracking ID is required");
+  public void inspectCargo(@NonNull final TrackingId trackingId) {
 
     final Cargo cargo = cargoRepository.find(trackingId);
     if (cargo == null) {
