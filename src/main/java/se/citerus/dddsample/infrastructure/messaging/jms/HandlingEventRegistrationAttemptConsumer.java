@@ -14,8 +14,8 @@ import javax.jms.ObjectMessage;
  * proper registration.
  * 
  */
-@RequiredArgsConstructor
 @CommonsLog
+@RequiredArgsConstructor
 public class HandlingEventRegistrationAttemptConsumer implements MessageListener {
 
   private final HandlingEventService handlingEventService;
