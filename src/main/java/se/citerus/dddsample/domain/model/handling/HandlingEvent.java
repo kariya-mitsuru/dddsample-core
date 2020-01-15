@@ -4,8 +4,8 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.Validate;
 import se.citerus.dddsample.domain.model.cargo.Cargo;
 import se.citerus.dddsample.domain.model.location.Location;
 import se.citerus.dddsample.domain.model.voyage.Voyage;
@@ -77,19 +77,12 @@ public final class HandlingEvent implements DomainEvent<HandlingEvent> {
    * @param location         where the event took place
    * @param voyage           the voyage
    */
-  public HandlingEvent(final Cargo cargo,
-                       final Date completionTime,
-                       final Date registrationTime,
-                       final Type type,
-                       final Location location,
-                       final Voyage voyage) {
-    Validate.notNull(cargo, "Cargo is required");
-    Validate.notNull(completionTime, "Completion time is required");
-    Validate.notNull(registrationTime, "Registration time is required");
-    Validate.notNull(type, "Handling event type is required");
-    Validate.notNull(location, "Location is required");
-    Validate.notNull(voyage, "Voyage is required");
-
+  public HandlingEvent(@NonNull final Cargo cargo,
+                       @NonNull final Date completionTime,
+                       @NonNull final Date registrationTime,
+                       @NonNull final Type type,
+                       @NonNull final Location location,
+                       @NonNull final Voyage voyage) {
     if (type.prohibitsVoyage()) {
       throw new IllegalArgumentException("Voyage is not allowed with event type " + type);
     }
@@ -109,17 +102,11 @@ public final class HandlingEvent implements DomainEvent<HandlingEvent> {
    * @param type             type of event
    * @param location         where the event took place
    */
-  public HandlingEvent(final Cargo cargo,
-                       final Date completionTime,
-                       final Date registrationTime,
-                       final Type type,
-                       final Location location) {
-    Validate.notNull(cargo, "Cargo is required");
-    Validate.notNull(completionTime, "Completion time is required");
-    Validate.notNull(registrationTime, "Registration time is required");
-    Validate.notNull(type, "Handling event type is required");
-    Validate.notNull(location, "Location is required");
-
+  public HandlingEvent(@NonNull final Cargo cargo,
+                       @NonNull final Date completionTime,
+                       @NonNull final Date registrationTime,
+                       @NonNull final Type type,
+                       @NonNull final Location location) {
     if (type.requiresVoyage()) {
       throw new IllegalArgumentException("Voyage is required for event type " + type);
     }
