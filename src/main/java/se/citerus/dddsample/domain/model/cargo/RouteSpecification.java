@@ -1,7 +1,9 @@
 package se.citerus.dddsample.domain.model.cargo;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.Validate;
@@ -17,6 +19,7 @@ import java.util.Date;
  * 
  */
 @EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class RouteSpecification implements Specification<Itinerary>, ValueObject<RouteSpecification> {
 
   @Getter
@@ -55,9 +58,4 @@ public class RouteSpecification implements Specification<Itinerary>, ValueObject
            destination().sameIdentityAs(itinerary.finalArrivalLocation()) &&
            arrivalDeadline().after(itinerary.finalArrivalDate());
   }
-
-  RouteSpecification() {
-    // Needed by Hibernate
-  }
-  
 }
