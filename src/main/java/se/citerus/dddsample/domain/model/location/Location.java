@@ -17,7 +17,7 @@ import se.citerus.dddsample.domain.shared.Entity;
  */
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public final class Location implements Entity<Location> {
 
   @NonNull @Getter @EqualsAndHashCode.Include
