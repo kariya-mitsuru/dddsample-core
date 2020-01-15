@@ -1,8 +1,10 @@
 package se.citerus.dddsample.domain.model.cargo;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import se.citerus.dddsample.domain.model.handling.HandlingEvent;
@@ -19,6 +21,7 @@ import se.citerus.dddsample.domain.shared.ValueObject;
 @EqualsAndHashCode
 @RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class HandlingActivity implements ValueObject<HandlingActivity> {
 
   // TODO make HandlingActivity a part of HandlingEvent too? There is some overlap. 
@@ -29,9 +32,4 @@ public class HandlingActivity implements ValueObject<HandlingActivity> {
   private Location location;
   @Getter
   private Voyage voyage;
-
-  HandlingActivity() {
-    // Needed by Hibernate
-  }
-  
 }
