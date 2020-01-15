@@ -1,6 +1,8 @@
 package se.citerus.dddsample.domain.model.cargo;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import se.citerus.dddsample.domain.shared.ValueObject;
@@ -10,6 +12,7 @@ import se.citerus.dddsample.domain.shared.ValueObject;
  *  
  */
 @EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 @RequiredArgsConstructor
 public final class TrackingId implements ValueObject<TrackingId> {
 
@@ -26,9 +29,5 @@ public final class TrackingId implements ValueObject<TrackingId> {
   @Override
   public String toString() {
     return id;
-  }
-
-  TrackingId() {
-    // Needed by Hibernate
   }
 }
