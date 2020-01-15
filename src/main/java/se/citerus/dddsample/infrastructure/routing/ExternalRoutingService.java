@@ -25,8 +25,8 @@ import java.util.Properties;
  * by the routing team, which operates in a different context from us.
  *
  */
-@RequiredArgsConstructor
 @CommonsLog
+@RequiredArgsConstructor
 public class ExternalRoutingService implements RoutingService {
 
   private final GraphTraversalService graphTraversalService;
