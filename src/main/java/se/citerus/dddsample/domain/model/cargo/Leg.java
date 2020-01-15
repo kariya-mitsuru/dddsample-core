@@ -15,9 +15,9 @@ import java.util.Date;
 /**
  * An itinerary consists of one or more legs.
  */
-@RequiredArgsConstructor
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor
 public class Leg implements ValueObject<Leg> {
 
   @NonNull @Getter
