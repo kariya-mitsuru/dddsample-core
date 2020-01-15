@@ -1,6 +1,7 @@
 package se.citerus.dddsample.domain.model.handling;
 
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import org.apache.commons.lang3.Validate;
 import se.citerus.dddsample.domain.shared.ValueObject;
 
@@ -18,8 +19,7 @@ public class HandlingHistory implements ValueObject<HandlingHistory> {
 
     public static final HandlingHistory EMPTY = new HandlingHistory(Collections.<HandlingEvent>emptyList());
 
-    public HandlingHistory(Collection<HandlingEvent> handlingEvents) {
-        Validate.notNull(handlingEvents, "Handling events are required");
+    public HandlingHistory(@NonNull Collection<HandlingEvent> handlingEvents) {
 
         this.handlingEvents = new ArrayList<>(handlingEvents);
     }
