@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.experimental.Accessors;
 
 import static se.citerus.dddsample.domain.model.cargo.RoutingStatus.*;
 import static se.citerus.dddsample.domain.model.cargo.TransportStatus.*;
@@ -31,6 +32,7 @@ public class Delivery implements ValueObject<Delivery> {
   private TransportStatus transportStatus;
   private Location lastKnownLocation;
   private Voyage currentVoyage;
+  @Getter @Accessors(fluent = false)
   private boolean misdirected;
   private Date eta;
   @Getter
@@ -106,21 +108,6 @@ public class Delivery implements ValueObject<Delivery> {
    */
   public Voyage currentVoyage() {
     return DomainObjectUtils.nullSafe(currentVoyage, Voyage.NONE);
-  }
-
-  /**
-   * Check if cargo is misdirected.
-   * <p/>
-   * <ul>
-   * <li>A cargo is misdirected if it is in a location that's not in the itinerary.
-   * <li>A cargo with no itinerary can not be misdirected.
-   * <li>A cargo that has received no handling events can not be misdirected.
-   * </ul>
-   *
-   * @return <code>true</code> if the cargo has been misdirected,
-   */
-  public boolean isMisdirected() {
-    return misdirected;
   }
 
   /**
