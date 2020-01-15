@@ -1,7 +1,7 @@
 package se.citerus.dddsample.domain.model.cargo;
 
 import lombok.Getter;
-import org.apache.commons.lang3.Validate;
+import lombok.NonNull;
 
 import se.citerus.dddsample.domain.model.handling.HandlingHistory;
 import se.citerus.dddsample.domain.model.location.Location;
@@ -56,9 +56,7 @@ public class Cargo implements Entity<Cargo> {
   @Getter
   private Delivery delivery;
 
-  public Cargo(final TrackingId trackingId, final RouteSpecification routeSpecification) {
-    Validate.notNull(trackingId, "Tracking ID is required");
-    Validate.notNull(routeSpecification, "Route specification is required");
+  public Cargo(@NonNull final TrackingId trackingId, @NonNull final RouteSpecification routeSpecification) {
 
     this.trackingId = trackingId;
     // Cargo origin never changes, even if the route specification changes.
@@ -83,8 +81,7 @@ public class Cargo implements Entity<Cargo> {
    *
    * @param routeSpecification route specification.
    */
-  public void specifyNewRoute(final RouteSpecification routeSpecification) {
-    Validate.notNull(routeSpecification, "Route specification is required");
+  public void specifyNewRoute(@NonNull final RouteSpecification routeSpecification) {
 
     this.routeSpecification = routeSpecification;
     // Handling consistency within the Cargo aggregate synchronously
@@ -96,8 +93,7 @@ public class Cargo implements Entity<Cargo> {
    *
    * @param itinerary an itinerary. May not be null.
    */
-  public void assignToRoute(final Itinerary itinerary) {
-    Validate.notNull(itinerary, "Itinerary is required for assignment");
+  public void assignToRoute(@NonNull final Itinerary itinerary) {
 
     this.itinerary = itinerary;
     // Handling consistency within the Cargo aggregate synchronously
