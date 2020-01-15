@@ -43,16 +43,14 @@ public class Voyage implements Entity<Voyage> {
    * Builder pattern is used for incremental construction
    * of a Voyage aggregate. This serves as an aggregate factory. 
    */
+  @RequiredArgsConstructor
   public static final class Builder {
 
     private final List<CarrierMovement> carrierMovements = new ArrayList<CarrierMovement>();
+    @NonNull
     private final VoyageNumber voyageNumber;
+    @NonNull
     private Location departureLocation;
-
-    public Builder(@NonNull final VoyageNumber voyageNumber, @NonNull final Location departureLocation) {
-      this.voyageNumber = voyageNumber;
-      this.departureLocation = departureLocation;
-    }
 
     public Builder addMovement(Location arrivalLocation, Date departureTime, Date arrivalTime) {
       carrierMovements.add(new CarrierMovement(departureLocation, arrivalLocation, departureTime, arrivalTime));
