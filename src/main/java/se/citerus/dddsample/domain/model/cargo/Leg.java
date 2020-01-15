@@ -1,7 +1,9 @@
 package se.citerus.dddsample.domain.model.cargo;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import se.citerus.dddsample.domain.model.location.Location;
@@ -15,6 +17,7 @@ import java.util.Date;
  */
 @RequiredArgsConstructor
 @EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Leg implements ValueObject<Leg> {
 
   @NonNull @Getter
@@ -34,10 +37,6 @@ public class Leg implements ValueObject<Leg> {
 
   public Date unloadTime() {
     return new Date(unloadTime.getTime());
-  }
-
-  Leg() {
-    // Needed by Hibernate
   }
 
   // Auto-generated surrogate key
