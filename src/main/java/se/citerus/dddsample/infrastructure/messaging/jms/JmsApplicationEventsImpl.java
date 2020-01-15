@@ -18,8 +18,8 @@ import javax.jms.Session;
 /**
  * JMS based implementation.
  */
-@RequiredArgsConstructor
 @CommonsLog
+@RequiredArgsConstructor
 public final class JmsApplicationEventsImpl implements ApplicationEvents {
 
   private final JmsOperations jmsOperations;
