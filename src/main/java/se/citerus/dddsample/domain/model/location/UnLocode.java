@@ -1,6 +1,9 @@
 package se.citerus.dddsample.domain.model.location;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.apache.commons.lang3.Validate;
 import se.citerus.dddsample.domain.shared.ValueObject;
 
@@ -13,6 +16,7 @@ import java.util.regex.Pattern;
  * http://www.unece.org/cefact/locode/DocColumnDescription.htm#LOCODE
  */
 @EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public final class UnLocode implements ValueObject<UnLocode> {
 
   private String unlocode;
@@ -26,8 +30,7 @@ public final class UnLocode implements ValueObject<UnLocode> {
    *
    * @param countryAndLocation Location string.
    */
-  public UnLocode(final String countryAndLocation) {
-    Validate.notNull(countryAndLocation, "Country and location may not be null");
+  public UnLocode(@NonNull final String countryAndLocation) {
     Validate.isTrue(VALID_PATTERN.matcher(countryAndLocation).matches(),
       countryAndLocation + " is not a valid UN/LOCODE (does not match pattern)");
 
@@ -45,9 +48,4 @@ public final class UnLocode implements ValueObject<UnLocode> {
   public String toString() {
     return idString();
   }
-
-  UnLocode() {
-    // Needed by Hibernate
-  }
-
 }
