@@ -1,5 +1,7 @@
 package se.citerus.dddsample.interfaces.handling.ws;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.apachecommons.CommonsLog;
 import com.aggregator.HandlingReport;
 import com.aggregator.HandlingReportErrors;
 import com.aggregator.HandlingReportErrors_Exception;
@@ -26,11 +28,12 @@ import java.util.List;
  * with the information to the handling event registration system for proper registration.
  *  
  */
+@CommonsLog
+@RequiredArgsConstructor
 @WebService(endpointInterface = "com.aggregator.HandlingReportService")
 public class HandlingReportServiceImpl implements HandlingReportService {
 
-  private ApplicationEvents applicationEvents;
-  private final static Log logger = LogFactory.getLog(HandlingReportServiceImpl.class);
+  private final ApplicationEvents applicationEvents;
 
   @Override
   public void submitReport(@WebParam(name = "arg0", targetNamespace = "") HandlingReport handlingReport) throws HandlingReportErrors_Exception {
@@ -52,16 +55,11 @@ public class HandlingReportServiceImpl implements HandlingReportService {
 
         applicationEvents.receivedHandlingEventRegistrationAttempt(attempt);
       } else {
-        logger.error("Parse error in handling report: " + errors);
+        log.error("Parse error in handling report: " + errors);
         final HandlingReportErrors faultInfo = new HandlingReportErrors();
         throw new HandlingReportErrors_Exception(errors.toString(), faultInfo);
       }
     }
 
   }
-
-  public void setApplicationEvents(ApplicationEvents applicationEvents) {
-    this.applicationEvents = applicationEvents;
-  }
-
 }
