@@ -1,5 +1,6 @@
 package se.citerus.dddsample.interfaces.handling;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import se.citerus.dddsample.domain.model.cargo.TrackingId;
@@ -17,6 +18,7 @@ import java.util.Date;
  * It is used as a message queue element. 
  *
  */
+@RequiredArgsConstructor
 public final class HandlingEventRegistrationAttempt implements Serializable {
 
   private final Date registrationTime;
@@ -25,20 +27,6 @@ public final class HandlingEventRegistrationAttempt implements Serializable {
   private final VoyageNumber voyageNumber;
   private final HandlingEvent.Type type;
   private final UnLocode unLocode;
-
-  public HandlingEventRegistrationAttempt(final Date registrationDate,
-                                          final Date completionDate,
-                                          final TrackingId trackingId,
-                                          final VoyageNumber voyageNumber,
-                                          final HandlingEvent.Type type,
-                                          final UnLocode unLocode) {
-    this.registrationTime = registrationDate;
-    this.completionTime = completionDate;
-    this.trackingId = trackingId;
-    this.voyageNumber = voyageNumber;
-    this.type = type;
-    this.unLocode = unLocode;
-  }
 
   public Date getCompletionTime() {
     return new Date(completionTime.getTime());
