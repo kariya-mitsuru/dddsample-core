@@ -29,9 +29,9 @@
     <task:scheduler id="myScheduler" pool-size="10"/>
 
     <bean id="uploadDirectoryScanner" class="se.citerus.dddsample.interfaces.handling.file.UploadDirectoryScanner">
-        <property name="uploadDirectory" value="/tmp/upload"/>
-        <property name="parseFailureDirectory" value="/tmp/failed"/>
-        <property name="applicationEvents" ref="applicationEvents"/>
+        <constructor-arg name="uploadDirectory" value="/tmp/upload"/>
+        <constructor-arg name="parseFailureDirectory" value="/tmp/failed"/>
+        <constructor-arg name="applicationEvents" ref="applicationEvents"/>
     </bean>
 
     <bean id="handlingReportConsumptionSupport" class="se.citerus.dddsample.interfaces.handling.HandlingReportParser"/>

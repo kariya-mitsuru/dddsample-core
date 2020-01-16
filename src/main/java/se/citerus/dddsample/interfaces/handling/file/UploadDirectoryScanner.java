@@ -1,9 +1,7 @@
 package se.citerus.dddsample.interfaces.handling.file;
 
+import lombok.extern.apachecommons.CommonsLog;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.InitializingBean;
 import se.citerus.dddsample.application.ApplicationEvents;
 import se.citerus.dddsample.domain.model.cargo.TrackingId;
 import se.citerus.dddsample.domain.model.handling.HandlingEvent;
@@ -26,13 +24,13 @@ import java.util.TimerTask;
  * Files that fail to parse are moved into a separate directory,
  * succesful files are deleted.
  */
-public class UploadDirectoryScanner extends TimerTask implements InitializingBean {
+@CommonsLog
+public class UploadDirectoryScanner extends TimerTask {
 
-  private File uploadDirectory;
-  private File parseFailureDirectory;
+  private final File uploadDirectory;
+  private final File parseFailureDirectory;
 
-  private final static Log logger = LogFactory.getLog(UploadDirectoryScanner.class);
-  private ApplicationEvents applicationEvents;
+  private final ApplicationEvents applicationEvents;
 
   @Override
   public void run() {
@@ -40,9 +38,9 @@ public class UploadDirectoryScanner extends TimerTask implements InitializingBea
       try {
         parse(file);
         delete(file);
-        logger.info("Import of " + file.getName() + " complete");
+        log.info("Import of " + file.getName() + " complete");
       } catch (Exception e) {
-        logger.error(e, e);
+        log.error(e, e);
         move(file);
       }
     }
@@ -55,7 +53,7 @@ public class UploadDirectoryScanner extends TimerTask implements InitializingBea
       try {
         parseLine(line);
       } catch (Exception e) {
-        logger.error("Rejected line \n" + line + "\nReason is: " + e);
+        log.error("Rejected line \n" + line + "\nReason is: " + e);
         rejectedLines.add(line);
       }
     }
@@ -104,7 +102,7 @@ public class UploadDirectoryScanner extends TimerTask implements InitializingBea
 
   private void delete(final File file) {
     if (!file.delete()) {
-      logger.error("Could not delete " + file.getName());
+      log.error("Could not delete " + file.getName());
     }
   }
 
@@ -112,12 +110,15 @@ public class UploadDirectoryScanner extends TimerTask implements InitializingBea
     final File destination = new File(parseFailureDirectory, file.getName());
     final boolean result = file.renameTo(destination);
     if (!result) {
-      logger.error("Could not move " + file.getName() + " to " + destination.getAbsolutePath());
+      log.error("Could not move " + file.getName() + " to " + destination.getAbsolutePath());
     }
   }
 
-  @Override
-  public void afterPropertiesSet() throws Exception {
+  public UploadDirectoryScanner(final File uploadDirectory, final File parseFailureDirectory, final ApplicationEvents applicationEvents) throws Exception {
+    this.uploadDirectory = uploadDirectory;
+    this.parseFailureDirectory = parseFailureDirectory;
+    this.applicationEvents = applicationEvents;
+
     if (uploadDirectory.equals(parseFailureDirectory)) {
       throw new Exception("Upload and parse failed directories must not be the same directory: " + uploadDirectory);
     }
@@ -127,17 +128,5 @@ public class UploadDirectoryScanner extends TimerTask implements InitializingBea
     if (!parseFailureDirectory.exists()) {
       parseFailureDirectory.mkdirs();
     }
-  }
-
-  public void setUploadDirectory(File uploadDirectory) {
-    this.uploadDirectory = uploadDirectory;
-  }
-
-  public void setParseFailureDirectory(File parseFailureDirectory) {
-    this.parseFailureDirectory = parseFailureDirectory;
-  }
-
-  public void setApplicationEvents(ApplicationEvents applicationEvents) {
-    this.applicationEvents = applicationEvents;
   }
 }
