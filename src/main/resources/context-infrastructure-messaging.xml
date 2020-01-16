@@ -27,7 +27,18 @@
     </amq:systemUsage>
   </amq:broker>
 
-  <amq:connectionFactory id="jmsConnectionFactory" brokerURL="vm://localhost"/>
+  <amq:connectionFactory id="jmsConnectionFactory" brokerURL="vm://localhost">
+    <property name="trustedPackages">
+      <list>
+        <value>se.citerus.dddsample.domain.model.cargo</value>
+        <value>se.citerus.dddsample.domain.model.handling</value>
+        <value>se.citerus.dddsample.domain.model.location</value>
+        <value>se.citerus.dddsample.domain.model.voyage</value>
+        <value>se.citerus.dddsample.interfaces.handling</value>
+        <value>java.util</value>
+      </list>
+    </property>
+  </amq:connectionFactory>
 
   <amq:queue id="cargoHandledQueue" name="CargoHandledQueue" physicalName="CargoHandledQueue"/>
   <amq:queue id="misdirectedCargoQueue" name="MisdirectedCargoQueue" physicalName="MisdirectedCargoQueue"/>
