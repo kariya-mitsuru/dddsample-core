@@ -38,10 +38,10 @@
 
     <bean id="bookingServiceFacade"
           class="se.citerus.dddsample.interfaces.booking.facade.internal.BookingServiceFacadeImpl">
-        <property name="bookingService" ref="bookingService"/>
-        <property name="cargoRepository" ref="cargoRepository"/>
-        <property name="locationRepository" ref="locationRepository"/>
-        <property name="voyageRepository" ref="voyageRepository"/>
+        <constructor-arg name="bookingService" ref="bookingService"/>
+        <constructor-arg name="cargoRepository" ref="cargoRepository"/>
+        <constructor-arg name="locationRepository" ref="locationRepository"/>
+        <constructor-arg name="voyageRepository" ref="voyageRepository"/>
     </bean>
 
     <bean id="trackCommandValidator" class="se.citerus.dddsample.interfaces.tracking.TrackCommandValidator"/>

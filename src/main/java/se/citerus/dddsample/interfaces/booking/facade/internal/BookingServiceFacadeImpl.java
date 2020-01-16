@@ -1,5 +1,6 @@
 package se.citerus.dddsample.interfaces.booking.facade.internal;
 
+import lombok.RequiredArgsConstructor;
 import se.citerus.dddsample.application.BookingService;
 import se.citerus.dddsample.domain.model.cargo.Cargo;
 import se.citerus.dddsample.domain.model.cargo.CargoRepository;
@@ -22,21 +23,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * This implementation has additional support from the infrastructure, for exposing as an RMI
  * service and for keeping the OR-mapper unit-of-work open during DTO assembly,
  * analogous to the view rendering for web interfaces.
  *
  */
+@RequiredArgsConstructor
 public class BookingServiceFacadeImpl implements BookingServiceFacade {
 
-  private BookingService bookingService;
-  private LocationRepository locationRepository;
-  private CargoRepository cargoRepository;
-  private VoyageRepository voyageRepository;
+  private final BookingService bookingService;
+  private final LocationRepository locationRepository;
+  private final CargoRepository cargoRepository;
+  private final VoyageRepository voyageRepository;
 
   @Override
   public List<LocationDTO> listShippingLocations() {
@@ -97,21 +96,5 @@ public class BookingServiceFacadeImpl implements BookingServiceFacade {
     }
 
     return routeCandidates;
-  }
-
-  public void setBookingService(BookingService bookingService) {
-    this.bookingService = bookingService;
-  }
-
-  public void setLocationRepository(LocationRepository locationRepository) {
-    this.locationRepository = locationRepository;
-  }
-
-  public void setCargoRepository(CargoRepository cargoRepository) {
-    this.cargoRepository = cargoRepository;
-  }
-
-  public void setVoyageRepository(VoyageRepository voyageRepository) {
-    this.voyageRepository = voyageRepository;
   }
 }
