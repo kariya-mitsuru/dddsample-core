@@ -1,5 +1,6 @@
 package se.citerus.dddsample.infrastructure.persistence.inmemory;
 
+import lombok.RequiredArgsConstructor;
 import se.citerus.dddsample.domain.model.cargo.Cargo;
 import se.citerus.dddsample.domain.model.cargo.CargoRepository;
 import se.citerus.dddsample.domain.model.cargo.RouteSpecification;
@@ -20,17 +21,11 @@ import java.util.*;
  * defined at compile time.
  * <p>
  */
+@RequiredArgsConstructor
 public class CargoRepositoryInMem implements CargoRepository {
 
-    private Map<String, Cargo> cargoDb;
-    private HandlingEventRepository handlingEventRepository;
-
-    /**
-     * Constructor.
-     */
-    public CargoRepositoryInMem() {
-        cargoDb = new HashMap<>();
-    }
+    private final Map<String, Cargo> cargoDb = new HashMap<>();
+    private final HandlingEventRepository handlingEventRepository;
 
     public Cargo find(final TrackingId trackingId) {
         return cargoDb.get(trackingId.idString());
@@ -71,10 +66,6 @@ public class CargoRepositoryInMem implements CargoRepository {
         final Cargo cargoCBA = createCargoWithDeliveryHistory(
                 cba, HELSINKI, STOCKHOLM, handlingEventRepository.lookupHandlingHistoryOfCargo(cba));
         cargoDb.put(cba.idString(), cargoCBA);
-    }
-
-    public void setHandlingEventRepository(final HandlingEventRepository handlingEventRepository) {
-        this.handlingEventRepository = handlingEventRepository;
     }
 
     public static Cargo createCargoWithDeliveryHistory(TrackingId trackingId,

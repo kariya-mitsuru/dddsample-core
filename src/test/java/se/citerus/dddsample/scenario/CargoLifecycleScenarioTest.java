@@ -352,7 +352,7 @@ public class CargoLifecycleScenarioTest {
 
     // In-memory implementations of the repositories
     handlingEventRepository = new HandlingEventRepositoryInMem();
-    cargoRepository = new CargoRepositoryInMem();
+    cargoRepository = new CargoRepositoryInMem(handlingEventRepository);
     locationRepository = new LocationRepositoryInMem();
     voyageRepository = new VoyageRepositoryInMem();
 

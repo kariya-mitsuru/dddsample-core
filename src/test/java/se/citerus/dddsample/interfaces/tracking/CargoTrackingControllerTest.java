@@ -34,13 +34,15 @@ public class CargoTrackingControllerTest {
 
     @Before
     public void setup() throws Exception {
-        CargoRepositoryInMem cargoRepository = new CargoRepositoryInMem();
-        cargoRepository.setHandlingEventRepository(new HandlingEventRepositoryInMem());
+        HandlingEventRepositoryInMem handlingEventRepository = new HandlingEventRepositoryInMem();
+        CargoRepositoryInMem cargoRepository = new CargoRepositoryInMem(handlingEventRepository);
         cargoRepository.init();
 
-        CargoTrackingController controller = new CargoTrackingController();
-        controller.setCargoRepository(cargoRepository);
-        controller.setHandlingEventRepository(new HandlingEventRepositoryInMem());
+        CargoTrackingController controller = new CargoTrackingController(
+            cargoRepository,
+            handlingEventRepository,
+            null
+          );
 
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/jsp/");

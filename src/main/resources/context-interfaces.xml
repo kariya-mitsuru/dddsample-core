@@ -53,9 +53,9 @@
     <!-- Tracking web application support -->
 
     <bean class="se.citerus.dddsample.interfaces.tracking.CargoTrackingController">
-        <constructor-arg  name="cargoRepository" ref="cargoRepository"/>
-        <constructor-arg  name="handlingEventRepository" ref="handlingEventRepository"/>
-        <constructor-arg  name="messageSource" ref="messageSource"/>
+        <constructor-arg name="cargoRepository" ref="cargoRepository"/>
+        <constructor-arg name="handlingEventRepository" ref="handlingEventRepository"/>
+        <constructor-arg name="messageSource" ref="messageSource"/>
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
