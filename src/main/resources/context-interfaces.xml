@@ -47,7 +47,7 @@
     <bean id="trackCommandValidator" class="se.citerus.dddsample.interfaces.tracking.TrackCommandValidator"/>
 
     <bean class="se.citerus.dddsample.interfaces.booking.web.CargoAdminController">
-        <property name="bookingServiceFacade" ref="bookingServiceFacade"/>
+        <constructor-arg name="bookingServiceFacade" ref="bookingServiceFacade"/>
     </bean>
 
     <!-- Tracking web application support -->

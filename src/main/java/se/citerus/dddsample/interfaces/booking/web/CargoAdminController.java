@@ -1,5 +1,6 @@
 package se.citerus.dddsample.interfaces.booking.web;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -34,9 +35,10 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public final class CargoAdminController {
 
-    private BookingServiceFacade bookingServiceFacade;
+    private final BookingServiceFacade bookingServiceFacade;
 
     @InitBinder
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
@@ -136,9 +138,5 @@ public final class CargoAdminController {
         String unLocode = request.getParameter("unlocode");
         bookingServiceFacade.changeDestination(trackingId, unLocode);
         response.sendRedirect("show.html?trackingId=" + trackingId);
-    }
-
-    public void setBookingServiceFacade(BookingServiceFacade bookingServiceFacade) {
-        this.bookingServiceFacade = bookingServiceFacade;
     }
 }

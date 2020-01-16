@@ -1,5 +1,7 @@
 package se.citerus.dddsample.interfaces.tracking;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
@@ -8,15 +10,8 @@ public final class TrackCommand {
   /**
    * The tracking id.
    */
+  @Getter @Setter
   private String trackingId;
-
-  public String getTrackingId() {
-    return trackingId;
-  }
-
-  public void setTrackingId(final String trackingId) {
-    this.trackingId = trackingId;
-  }
 
   @Override
   public String toString() {

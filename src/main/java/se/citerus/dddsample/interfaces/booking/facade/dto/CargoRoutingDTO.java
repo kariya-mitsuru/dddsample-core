@@ -1,5 +1,7 @@
 package se.citerus.dddsample.interfaces.booking.facade.dto;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,44 +11,20 @@ import java.util.List;
 /**
  * DTO for registering and routing a cargo.
  */
+@RequiredArgsConstructor
 public final class CargoRoutingDTO implements Serializable {
 
+  @Getter
   private final String trackingId;
+  @Getter
   private final String origin;
+  @Getter
   private final String finalDestination;
+  @Getter
   private final Date arrivalDeadline;
+  @Getter
   private final boolean misrouted;
-  private final List<LegDTO> legs;
-
-  /**
-   * Constructor.
-   *
-   * @param trackingId
-   * @param origin
-   * @param finalDestination
-   * @param arrivalDeadline
-   * @param misrouted
-   */
-  public CargoRoutingDTO(String trackingId, String origin, String finalDestination, Date arrivalDeadline, boolean misrouted) {
-    this.trackingId = trackingId;
-    this.origin = origin;
-    this.finalDestination = finalDestination;
-    this.arrivalDeadline = arrivalDeadline;
-    this.misrouted = misrouted;
-    this.legs = new ArrayList<LegDTO>();
-  }
-
-  public String getTrackingId() {
-    return trackingId;
-  }
-
-  public String getOrigin() {
-    return origin;
-  }
-
-  public String getFinalDestination() {
-    return finalDestination;
-  }
+  private final List<LegDTO> legs = new ArrayList<LegDTO>();
 
   public void addLeg(String voyageNumber, String from, String to, Date loadTime, Date unloadTime) {
     legs.add(new LegDTO(voyageNumber, from, to, loadTime, unloadTime));
@@ -59,16 +37,7 @@ public final class CargoRoutingDTO implements Serializable {
     return Collections.unmodifiableList(legs);
   }
 
-  public boolean isMisrouted() {
-    return misrouted;
-  }
-
   public boolean isRouted() {
     return !legs.isEmpty();
   }
-
-  public Date getArrivalDeadline() {
-    return arrivalDeadline;
-  }
-
 }

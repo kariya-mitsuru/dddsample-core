@@ -1,5 +1,6 @@
 package se.citerus.dddsample.interfaces.handling;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -23,29 +24,17 @@ public final class HandlingEventRegistrationAttempt implements Serializable {
 
   private final Date registrationTime;
   private final Date completionTime;
+  @Getter
   private final TrackingId trackingId;
+  @Getter
   private final VoyageNumber voyageNumber;
+  @Getter
   private final HandlingEvent.Type type;
+  @Getter
   private final UnLocode unLocode;
 
   public Date getCompletionTime() {
     return new Date(completionTime.getTime());
-  }
-
-  public TrackingId getTrackingId() {
-    return trackingId;
-  }
-
-  public VoyageNumber getVoyageNumber() {
-    return voyageNumber;
-  }
-
-  public HandlingEvent.Type getType() {
-    return type;
-  }
-
-  public UnLocode getUnLocode() {
-    return unLocode;
   }
 
   public Date getRegistrationTime() {
