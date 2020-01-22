@@ -25,7 +25,7 @@ public final class CargoTrackingViewAdapter {
   private final MessageSource messageSource;
   private final Locale locale;
   private final List<HandlingEventViewAdapter> events;
-  private final String FORMAT = "uuuu-MM-dd hh:mm";
+  private final String FORMAT = "uuuu-MM-dd HH:mm";
   private final ZoneId zoneId;
 
     /**
