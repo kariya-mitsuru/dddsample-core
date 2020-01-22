@@ -123,7 +123,7 @@ public final class CargoTrackingViewAdapter {
     return cargo.trackingId().idString();
   }
 
-  public String getEta() {
+  public String getEstimatedTimeOfArrival() {
     LocalDateTime eta = cargo.delivery().estimatedTimeOfArrival();
 
     if (eta == null) return "?";
