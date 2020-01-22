@@ -7,11 +7,11 @@ import static se.citerus.dddsample.domain.model.location.SampleLocations.HELSINK
 import static se.citerus.dddsample.domain.model.voyage.SampleVoyages.CM001;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import org.junit.Test;
 import org.springframework.context.support.StaticApplicationContext;
@@ -40,7 +40,7 @@ public class CargoTrackingViewAdapterTest {
     applicationContext.addMessage("cargo.status.IN_PORT", Locale.GERMAN, "In port {0}");
     applicationContext.refresh();
 
-    CargoTrackingViewAdapter adapter = new CargoTrackingViewAdapter(cargo, applicationContext, Locale.GERMAN, events, TimeZone.getTimeZone("Europe/Stockholm"));
+    CargoTrackingViewAdapter adapter = new CargoTrackingViewAdapter(cargo, applicationContext, Locale.GERMAN, events, ZoneId.of("Europe/Stockholm"));
 
     assertThat(adapter.getTrackingId()).isEqualTo("XYZ");
     assertThat(adapter.getOrigin()).isEqualTo("Hangzhou");

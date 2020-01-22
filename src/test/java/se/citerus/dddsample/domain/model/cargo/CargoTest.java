@@ -340,6 +340,6 @@ public class CargoTest {
    */
   private static LocalDateTime getDate(String isoFormat) throws DateTimeParseException {
     final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("uuuu-MM-dd");
-    return dateFormat.parse(isoFormat);
+    return LocalDateTime.parse(isoFormat, dateFormat);
   }
 }

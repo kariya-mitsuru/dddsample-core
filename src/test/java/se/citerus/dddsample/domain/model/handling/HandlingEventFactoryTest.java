@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static se.citerus.dddsample.application.util.DateTestUtil.ts;
 import static se.citerus.dddsample.domain.model.handling.HandlingEvent.Type;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.HELSINKI;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.STOCKHOLM;
@@ -66,7 +67,7 @@ public class HandlingEventFactoryTest {
     assertThat(handlingEvent.voyage()).isEqualTo(CM001);
     assertThat(handlingEvent.cargo()).isEqualTo(cargo);
     assertThat(handlingEvent.completionTime()).isEqualTo(ts(100));
-    assertThat(handlingEvent.registrationTime().before(LocalDateTime.now().plusNanos(1L * 1000 * 1000))).isTrue();
+    assertThat(handlingEvent.registrationTime().isBefore(LocalDateTime.now().plusNanos(1L * 1000 * 1000))).isTrue();
   }
 
   @Test
@@ -83,7 +84,7 @@ public class HandlingEventFactoryTest {
     assertThat(handlingEvent.voyage()).isEqualTo(Voyage.NONE);
     assertThat(handlingEvent.cargo()).isEqualTo(cargo);
     assertThat(handlingEvent.completionTime()).isEqualTo(ts(100));
-    assertThat(handlingEvent.registrationTime().before(new LocalDateTime(System.currentTimeMillis() + 1))).isTrue();
+    assertThat(handlingEvent.registrationTime().isBefore(LocalDateTime.now().plusNanos(1L * 1000 * 1000))).isTrue();
   }
 
   @Test
@@ -122,10 +123,6 @@ public class HandlingEventFactoryTest {
       );
       fail("Expected UnknownCargoException");
     } catch (UnknownCargoException expected) {}
-  }
-
-  private static LocalDateTime ts(long ms) {
-    return LocalDateTime.ofInstant(Instant.ofEpochMilli(ms), ZoneId.systemDefault());
   }
 
 }

@@ -40,10 +40,12 @@ public final class CargoAdminController {
 
     private final BookingServiceFacade bookingServiceFacade;
 
+	/*
     @InitBinder
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
         binder.registerCustomEditor(LocalDateTime.class, new CustomDateEditor(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm"), false));
     }
+	*/
 
     @RequestMapping("/registration")
     public String registration(HttpServletRequest request, HttpServletResponse response, Map<String, Object> model) throws Exception {
@@ -62,7 +64,7 @@ public final class CargoAdminController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void register(HttpServletRequest request, HttpServletResponse response,
-                         RegistrationCommand command) {
+                         RegistrationCommand command) throws Exception {
         LocalDateTime arrivalDeadline = LocalDateTime.parse(command.getArrivalDeadline(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
         String trackingId = bookingServiceFacade.bookNewCargo(
                 command.getOriginUnlocode(), command.getDestinationUnlocode(), arrivalDeadline
