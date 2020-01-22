@@ -7,7 +7,11 @@ import se.citerus.dddsample.domain.model.location.Location;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.*;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Sample carrier movements, for test purposes.
