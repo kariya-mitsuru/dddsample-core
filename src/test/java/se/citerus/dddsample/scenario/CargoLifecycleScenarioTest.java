@@ -26,8 +26,8 @@ import static se.citerus.dddsample.domain.model.voyage.SampleVoyages.v300;
 import static se.citerus.dddsample.domain.model.voyage.SampleVoyages.v400;
 import static se.citerus.dddsample.domain.model.voyage.Voyage.NONE;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -115,7 +115,7 @@ public class CargoLifecycleScenarioTest {
        and it should arrive in no more than two weeks. */
     Location origin = HONGKONG;
     Location destination = STOCKHOLM;
-    Date arrivalDeadline = toDate("2009-03-18");
+    LocalDateTime arrivalDeadline = toDate("2009-03-18");
 
     /* Use case 1: booking
 

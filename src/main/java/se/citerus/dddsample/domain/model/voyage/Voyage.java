@@ -10,7 +10,7 @@ import se.citerus.dddsample.domain.model.location.Location;
 import se.citerus.dddsample.domain.shared.Entity;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -52,7 +52,7 @@ public class Voyage implements Entity<Voyage> {
     @NonNull
     private Location departureLocation;
 
-    public Builder addMovement(Location arrivalLocation, Date departureTime, Date arrivalTime) {
+    public Builder addMovement(Location arrivalLocation, LocalDateTime departureTime, LocalDateTime arrivalTime) {
       carrierMovements.add(new CarrierMovement(departureLocation, arrivalLocation, departureTime, arrivalTime));
       // Next departure location is the same as this arrival location
       this.departureLocation = arrivalLocation;

@@ -10,7 +10,7 @@ import static se.citerus.dddsample.domain.model.location.SampleLocations.STOCKHO
 import static se.citerus.dddsample.domain.model.location.SampleLocations.TOKYO;
 import static se.citerus.dddsample.domain.model.voyage.SampleVoyages.CM001;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,7 +35,7 @@ public class HandlingEventServiceTest {
   private HandlingEventRepository handlingEventRepository;
   private LocationRepository locationRepository;
 
-  private final Cargo cargo = new Cargo(new TrackingId("ABC"), new RouteSpecification(HAMBURG, TOKYO, new Date()));
+  private final Cargo cargo = new Cargo(new TrackingId("ABC"), new RouteSpecification(HAMBURG, TOKYO, LocalDateTime.now()));
 
   @Before
   public void setUp() {
@@ -61,7 +61,7 @@ public class HandlingEventServiceTest {
     when(voyageRepository.find(CM001.voyageNumber())).thenReturn(CM001);
     when(locationRepository.find(STOCKHOLM.unLocode())).thenReturn(STOCKHOLM);
 
-    service.registerHandlingEvent(new Date(), cargo.trackingId(), CM001.voyageNumber(), STOCKHOLM.unLocode(), HandlingEvent.Type.LOAD);
+    service.registerHandlingEvent(LocalDateTime.now(), cargo.trackingId(), CM001.voyageNumber(), STOCKHOLM.unLocode(), HandlingEvent.Type.LOAD);
   }
 
 }

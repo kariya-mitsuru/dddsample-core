@@ -14,10 +14,9 @@ import se.citerus.dddsample.domain.model.location.LocationRepository;
 import se.citerus.dddsample.domain.model.location.SampleLocations;
 import se.citerus.dddsample.domain.model.voyage.VoyageRepository;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
@@ -30,16 +29,7 @@ import static se.citerus.dddsample.domain.model.voyage.SampleVoyages.*;
  */
 public class SampleDataGenerator {
 
-    private static final Timestamp base;
-
-    static {
-        try {
-            Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2008-01-01");
-            base = new Timestamp(date.getTime() - 1000L * 60 * 60 * 24 * 100);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static final LocalDateTime base = LocalDate.of(2008, Month.JANUARY, 1).minusDays(100).atStartOfDay();
 
     private final PlatformTransactionManager transactionManager;
     private final SessionFactory sf;
@@ -242,17 +232,17 @@ public class SampleDataGenerator {
 
                 try {
                     HandlingEvent event1 = handlingEventFactory.createHandlingEvent(
-                            new Date(), toDate("2009-03-01"), trackingId, null, HONGKONG.unLocode(), HandlingEvent.Type.RECEIVE
+                            LocalDateTime.now(), toDate("2009-03-01"), trackingId, null, HONGKONG.unLocode(), HandlingEvent.Type.RECEIVE
                     );
                     session.save(event1);
 
                     HandlingEvent event2 = handlingEventFactory.createHandlingEvent(
-                            new Date(), toDate("2009-03-02"), trackingId, HONGKONG_TO_NEW_YORK.voyageNumber(), HONGKONG.unLocode(), HandlingEvent.Type.LOAD
+                            LocalDateTime.now(), toDate("2009-03-02"), trackingId, HONGKONG_TO_NEW_YORK.voyageNumber(), HONGKONG.unLocode(), HandlingEvent.Type.LOAD
                     );
                     session.save(event2);
 
                     HandlingEvent event3 = handlingEventFactory.createHandlingEvent(
-                            new Date(), toDate("2009-03-05"), trackingId, HONGKONG_TO_NEW_YORK.voyageNumber(), NEWYORK.unLocode(), HandlingEvent.Type.UNLOAD
+                            LocalDateTime.now(), toDate("2009-03-05"), trackingId, HONGKONG_TO_NEW_YORK.voyageNumber(), NEWYORK.unLocode(), HandlingEvent.Type.UNLOAD
                     );
                     session.save(event3);
                 } catch (CannotCreateHandlingEventException e) {
@@ -281,22 +271,22 @@ public class SampleDataGenerator {
 
                 try {
                     HandlingEvent event1 = handlingEventFactory.createHandlingEvent(
-                            new Date(), toDate("2009-03-01"), trackingId1, null, HANGZOU.unLocode(), HandlingEvent.Type.RECEIVE
+                            LocalDateTime.now(), toDate("2009-03-01"), trackingId1, null, HANGZOU.unLocode(), HandlingEvent.Type.RECEIVE
                     );
                     session.save(event1);
 
                     HandlingEvent event2 = handlingEventFactory.createHandlingEvent(
-                            new Date(), toDate("2009-03-03"), trackingId1, HONGKONG_TO_NEW_YORK.voyageNumber(), HANGZOU.unLocode(), HandlingEvent.Type.LOAD
+                            LocalDateTime.now(), toDate("2009-03-03"), trackingId1, HONGKONG_TO_NEW_YORK.voyageNumber(), HANGZOU.unLocode(), HandlingEvent.Type.LOAD
                     );
                     session.save(event2);
 
                     HandlingEvent event3 = handlingEventFactory.createHandlingEvent(
-                            new Date(), toDate("2009-03-05"), trackingId1, HONGKONG_TO_NEW_YORK.voyageNumber(), NEWYORK.unLocode(), HandlingEvent.Type.UNLOAD
+                            LocalDateTime.now(), toDate("2009-03-05"), trackingId1, HONGKONG_TO_NEW_YORK.voyageNumber(), NEWYORK.unLocode(), HandlingEvent.Type.UNLOAD
                     );
                     session.save(event3);
 
                     HandlingEvent event4 = handlingEventFactory.createHandlingEvent(
-                            new Date(), toDate("2009-03-06"), trackingId1, HONGKONG_TO_NEW_YORK.voyageNumber(), NEWYORK.unLocode(), HandlingEvent.Type.LOAD
+                            LocalDateTime.now(), toDate("2009-03-06"), trackingId1, HONGKONG_TO_NEW_YORK.voyageNumber(), NEWYORK.unLocode(), HandlingEvent.Type.LOAD
                     );
                     session.save(event4);
 
@@ -330,11 +320,11 @@ public class SampleDataGenerator {
         }
     }
 
-    private static Timestamp ts(int hours) {
-        return new Timestamp(base.getTime() + 1000L * 60 * 60 * hours);
+    private static LocalDateTime ts(int hours) {
+        return base.plusHours(hours);
     }
 
-    public static Date offset(int hours) {
-        return new Date(ts(hours).getTime());
+    public static LocalDateTime offset(int hours) {
+        return ts(hours);
     }
 }

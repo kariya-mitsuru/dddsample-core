@@ -11,13 +11,7 @@ import static org.mockito.Mockito.when;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.CHICAGO;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.STOCKHOLM;
 
-import java.util.Date;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static se.citerus.dddsample.domain.model.location.SampleLocations.CHICAGO;
-import static se.citerus.dddsample.domain.model.location.SampleLocations.STOCKHOLM;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.junit.After;
 import org.junit.Before;
@@ -55,7 +49,7 @@ public class BookingServiceTest {
     when(locationRepository.find(fromUnlocode)).thenReturn(CHICAGO);
     when(locationRepository.find(toUnlocode)).thenReturn(STOCKHOLM);
 
-    TrackingId trackingId = bookingService.bookNewCargo(fromUnlocode, toUnlocode, new Date());
+    TrackingId trackingId = bookingService.bookNewCargo(fromUnlocode, toUnlocode, LocalDateTime.now());
     assertThat(trackingId).isEqualTo(expectedTrackingId);
   }
 

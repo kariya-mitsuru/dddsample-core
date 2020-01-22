@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -21,12 +21,12 @@ public final class CargoRoutingDTO implements Serializable {
   @Getter
   private final String finalDestination;
   @Getter
-  private final Date arrivalDeadline;
+  private final LocalDateTime arrivalDeadline;
   @Getter
   private final boolean misrouted;
   private final List<LegDTO> legs = new ArrayList<LegDTO>();
 
-  public void addLeg(String voyageNumber, String from, String to, Date loadTime, Date unloadTime) {
+  public void addLeg(String voyageNumber, String from, String to, LocalDateTime loadTime, LocalDateTime unloadTime) {
     legs.add(new LegDTO(voyageNumber, from, to, loadTime, unloadTime));
   }
 

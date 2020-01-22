@@ -11,7 +11,7 @@ import se.citerus.dddsample.domain.model.location.Location;
 import se.citerus.dddsample.domain.shared.Specification;
 import se.citerus.dddsample.domain.shared.ValueObject;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Route specification. Describes where a cargo origin and destination is,
@@ -26,29 +26,20 @@ public class RouteSpecification implements Specification<Itinerary>, ValueObject
   private Location origin;
   @Getter
   private Location destination;
-  private Date arrivalDeadline;
+  @Getter
+  private LocalDateTime arrivalDeadline;
 
   /**
    * @param origin origin location - can't be the same as the destination
    * @param destination destination location - can't be the same as the origin
    * @param arrivalDeadline arrival deadline
    */
-  public RouteSpecification(final Location origin, final Location destination, final Date arrivalDeadline) {
-    Validate.notNull(origin, "Origin is required");
-    Validate.notNull(destination, "Destination is required");
-    Validate.notNull(arrivalDeadline, "Arrival deadline is required");
+  public RouteSpecification(@NonNull final Location origin, @NonNull final Location destination, @NonNull final LocalDateTime arrivalDeadline) {
     Validate.isTrue(!origin.sameIdentityAs(destination), "Origin and destination can't be the same: " + origin);
 
     this.origin = origin;
     this.destination = destination;
-    this.arrivalDeadline = (Date) arrivalDeadline.clone();
-  }
-
-  /**
-   * @return Arrival deadline.
-   */
-  public Date arrivalDeadline() {
-    return new Date(arrivalDeadline.getTime());
+    this.arrivalDeadline = arrivalDeadline;
   }
 
   @Override

@@ -10,7 +10,7 @@ import se.citerus.dddsample.domain.model.location.UnLocode;
 import se.citerus.dddsample.domain.model.voyage.VoyageNumber;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * This is a simple transfer object for passing incoming handling event
@@ -22,8 +22,10 @@ import java.util.Date;
 @RequiredArgsConstructor
 public final class HandlingEventRegistrationAttempt implements Serializable {
 
-  private final Date registrationTime;
-  private final Date completionTime;
+  @Getter
+  private final LocalDateTime registrationTime;
+  @Getter
+  private final LocalDateTime completionTime;
   @Getter
   private final TrackingId trackingId;
   @Getter
@@ -32,14 +34,6 @@ public final class HandlingEventRegistrationAttempt implements Serializable {
   private final HandlingEvent.Type type;
   @Getter
   private final UnLocode unLocode;
-
-  public Date getCompletionTime() {
-    return new Date(completionTime.getTime());
-  }
-
-  public Date getRegistrationTime() {
-    return registrationTime;
-  }
 
   @Override
   public String toString() {

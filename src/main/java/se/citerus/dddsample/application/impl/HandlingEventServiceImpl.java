@@ -13,7 +13,7 @@ import se.citerus.dddsample.domain.model.handling.HandlingEventRepository;
 import se.citerus.dddsample.domain.model.location.UnLocode;
 import se.citerus.dddsample.domain.model.voyage.VoyageNumber;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @CommonsLog
 @RequiredArgsConstructor
@@ -25,12 +25,12 @@ public class HandlingEventServiceImpl implements HandlingEventService {
 
   @Override
   @Transactional(rollbackFor = CannotCreateHandlingEventException.class)
-  public void registerHandlingEvent(final Date completionTime,
+  public void registerHandlingEvent(final LocalDateTime completionTime,
                                     final TrackingId trackingId,
                                     final VoyageNumber voyageNumber,
                                     final UnLocode unLocode,
                                     final HandlingEvent.Type type) throws CannotCreateHandlingEventException {
-    final Date registrationTime = new Date();
+    final LocalDateTime registrationTime = LocalDateTime.now();
     /* Using a factory to create a HandlingEvent (aggregate). This is where
        it is determined whether the incoming data, the attempt, actually is capable
        of representing a real handling event. */

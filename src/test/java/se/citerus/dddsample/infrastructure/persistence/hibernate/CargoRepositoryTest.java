@@ -11,8 +11,8 @@ import static se.citerus.dddsample.domain.model.location.SampleLocations.TOKYO;
 import static se.citerus.dddsample.domain.model.voyage.SampleVoyages.CM004;
 
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -101,9 +101,9 @@ public class CargoRepositoryTest {
 
         Voyage hongkongMelbourneTokyoAndBack = new Voyage.Builder(
                 new VoyageNumber("0303"), HONGKONG).
-                addMovement(MELBOURNE, new Date(), new Date()).
-                addMovement(TOKYO, new Date(), new Date()).
-                addMovement(HONGKONG, new Date(), new Date()).
+                addMovement(MELBOURNE, LocalDateTime.now(), LocalDateTime.now()).
+                addMovement(TOKYO, LocalDateTime.now(), LocalDateTime.now()).
+                addMovement(HONGKONG, LocalDateTime.now(), LocalDateTime.now()).
                 build();
 
         assertHandlingEvent(cargo, secondEvent, LOAD, HONGKONG, 150, 110, hongkongMelbourneTokyoAndBack);
@@ -125,10 +125,10 @@ public class CargoRepositoryTest {
         assertThat(event.type()).isEqualTo(expectedEventType);
         assertThat(event.location()).isEqualTo(expectedLocation);
 
-        Date expectedCompletionTime = SampleDataGenerator.offset(completionTimeMs);
+        LocalDateTime expectedCompletionTime = SampleDataGenerator.offset(completionTimeMs);
         assertThat(event.completionTime()).isEqualTo(expectedCompletionTime);
 
-        Date expectedRegistrationTime = SampleDataGenerator.offset(registrationTimeMs);
+        LocalDateTime expectedRegistrationTime = SampleDataGenerator.offset(registrationTimeMs);
         assertThat(event.registrationTime()).isEqualTo(expectedRegistrationTime);
 
         assertThat(event.voyage()).isEqualTo(voyage);
@@ -152,7 +152,7 @@ public class CargoRepositoryTest {
         Location origin = locationRepository.find(STOCKHOLM.unLocode());
         Location destination = locationRepository.find(MELBOURNE.unLocode());
 
-        Cargo cargo = new Cargo(trackingId, new RouteSpecification(origin, destination, new Date()));
+        Cargo cargo = new Cargo(trackingId, new RouteSpecification(origin, destination, LocalDateTime.now()));
         cargoRepository.store(cargo);
 
         cargo.assignToRoute(new Itinerary(Collections.singletonList(
@@ -160,7 +160,7 @@ public class CargoRepositoryTest {
                         voyageRepository.find(new VoyageNumber("0101")),
                         locationRepository.find(STOCKHOLM.unLocode()),
                         locationRepository.find(MELBOURNE.unLocode()),
-                        new Date(), new Date())
+                        LocalDateTime.now(), LocalDateTime.now())
         )));
 
         flush();
@@ -190,7 +190,7 @@ public class CargoRepositoryTest {
 
         Location legFrom = locationRepository.find(new UnLocode("FIHEL"));
         Location legTo = locationRepository.find(new UnLocode("DEHAM"));
-        Itinerary newItinerary = new Itinerary(Collections.singletonList(new Leg(CM004, legFrom, legTo, new Date(), new Date())));
+        Itinerary newItinerary = new Itinerary(Collections.singletonList(new Leg(CM004, legFrom, legTo, LocalDateTime.now(), LocalDateTime.now())));
 
         cargo.assignToRoute(newItinerary);
 

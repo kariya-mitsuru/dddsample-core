@@ -5,8 +5,8 @@ import lombok.Setter;
 import org.apache.commons.collections4.Factory;
 import org.apache.commons.collections4.ListUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter @Setter
@@ -22,8 +22,8 @@ public class RouteAssignmentCommand {
     private String voyageNumber;
     private String fromUnLocode;
     private String toUnLocode;
-    private Date fromDate;
-    private Date toDate;
+    private LocalDateTime fromDate;
+    private LocalDateTime toDate;
 
     public static Factory<LegCommand> factory() {
       return LegCommand::new;

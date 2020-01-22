@@ -3,7 +3,7 @@ package com.pathfinder.api;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Represents an edge in a path through a graph,
@@ -17,6 +17,6 @@ public final class TransitEdge implements Serializable {
   private final String edge;
   private final String fromNode;
   private final String toNode;
-  private final Date fromDate;
-  private final Date toDate;
+  private final LocalDateTime fromDate;
+  private final LocalDateTime toDate;
 }

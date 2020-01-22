@@ -1,34 +1,39 @@
 package se.citerus.dddsample.application.util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 /**
- * A few utils for working with Date in tests.
+ * A few utils for working with LocalDateTime in tests.
  *
  */
 public final class DateTestUtil {
 
   /**
    * @param date date string as yyyy-MM-dd
-   * @return Date representation
+   * @return LocalDateTime representation
    */
-  public static Date toDate(final String date) {
-    return toDate(date, "00:00.00.000");
+  public static LocalDateTime toDate(final String date) {
+    return toDate(date, "00:00");
   }
 
   /**
    * @param date date string as yyyy-MM-dd
    * @param time time string as HH:mm
-   * @return Date representation
+   * @return LocalDateTime representation
    */
-  public static Date toDate(final String date, final String time) {
-    try {
-      return new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date + " " + time);
-    } catch (ParseException e) {
-      throw new RuntimeException(e);
-    }
+  public static LocalDateTime toDate(final String date, final String time) {
+    return DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm").parse(date + " " + time);
+  }
+
+  /**
+   * @param ms the number of milliseconds from 1970-01-01T00:00:00Z
+   * @return LocalDateTime representation
+   */
+  public static LocalDateTime ts(final long ms) {
+    return LocalDateTime.ofInstant(Instant.ofEpochMilli(ms), ZoneId.systemDefault());
   }
 
   /**

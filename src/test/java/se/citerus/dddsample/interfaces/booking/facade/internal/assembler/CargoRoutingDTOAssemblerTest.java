@@ -7,8 +7,8 @@ import static se.citerus.dddsample.domain.model.location.SampleLocations.SHANGHA
 import static se.citerus.dddsample.domain.model.location.SampleLocations.STOCKHOLM;
 import static se.citerus.dddsample.domain.model.voyage.SampleVoyages.CM001;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 
 import org.junit.Test;
 
@@ -29,12 +29,12 @@ public class CargoRoutingDTOAssemblerTest {
 
     final Location origin = STOCKHOLM;
     final Location destination = MELBOURNE;
-    final Cargo cargo = new Cargo(new TrackingId("XYZ"), new RouteSpecification(origin, destination, new Date()));
+    final Cargo cargo = new Cargo(new TrackingId("XYZ"), new RouteSpecification(origin, destination, LocalDateTime.now()));
 
     final Itinerary itinerary = new Itinerary(
       Arrays.asList(
-        new Leg(CM001, origin, SHANGHAI, new Date(), new Date()),
-        new Leg(CM001, ROTTERDAM, destination, new Date(), new Date())
+        new Leg(CM001, origin, SHANGHAI, LocalDateTime.now(), LocalDateTime.now()),
+        new Leg(CM001, ROTTERDAM, destination, LocalDateTime.now(), LocalDateTime.now())
       )
     );
 
@@ -59,7 +59,7 @@ public class CargoRoutingDTOAssemblerTest {
   public void testToDTO_NoItinerary() {
     final CargoRoutingDTOAssembler assembler = new CargoRoutingDTOAssembler();
 
-    final Cargo cargo = new Cargo(new TrackingId("XYZ"), new RouteSpecification(STOCKHOLM, MELBOURNE, new Date()));
+    final Cargo cargo = new Cargo(new TrackingId("XYZ"), new RouteSpecification(STOCKHOLM, MELBOURNE, LocalDateTime.now()));
     final CargoRoutingDTO dto = assembler.toDTO(cargo);
 
     assertThat(dto.getTrackingId()).isEqualTo("XYZ");

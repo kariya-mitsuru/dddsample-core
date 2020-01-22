@@ -10,7 +10,7 @@ import se.citerus.dddsample.domain.model.location.Location;
 import se.citerus.dddsample.domain.model.voyage.Voyage;
 import se.citerus.dddsample.domain.shared.ValueObject;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * An itinerary consists of one or more legs.
@@ -26,18 +26,10 @@ public class Leg implements ValueObject<Leg> {
   private Location loadLocation;
   @NonNull @Getter
   private Location unloadLocation;
-  @NonNull
-  private Date loadTime;
-  @NonNull
-  private Date unloadTime;
-
-  public Date loadTime() {
-    return new Date(loadTime.getTime());
-  }
-
-  public Date unloadTime() {
-    return new Date(unloadTime.getTime());
-  }
+  @NonNull @Getter
+  private LocalDateTime loadTime;
+  @NonNull @Getter
+  private LocalDateTime unloadTime;
 
   // Auto-generated surrogate key
   @EqualsAndHashCode.Exclude

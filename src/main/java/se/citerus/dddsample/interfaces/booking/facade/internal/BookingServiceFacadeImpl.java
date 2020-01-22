@@ -20,7 +20,7 @@ import se.citerus.dddsample.interfaces.booking.facade.internal.assembler.Locatio
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -45,7 +45,7 @@ public class BookingServiceFacadeImpl implements BookingServiceFacade {
   }
 
   @Override
-  public String bookNewCargo(String origin, String destination, Date arrivalDeadline) {
+  public String bookNewCargo(String origin, String destination, LocalDateTime arrivalDeadline) {
     TrackingId trackingId = bookingService.bookNewCargo(
       new UnLocode(origin), 
       new UnLocode(destination),

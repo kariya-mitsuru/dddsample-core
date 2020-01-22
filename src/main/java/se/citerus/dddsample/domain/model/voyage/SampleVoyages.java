@@ -23,7 +23,7 @@ public class SampleVoyages {
 
     private static Voyage createVoyage(String id, Location from, Location to) {
         return new Voyage.Builder(new VoyageNumber(id), from).
-                addMovement(to, new Date(), new Date()).
+                addMovement(to, LocalDateTime.now(), LocalDateTime.now()).
                 build();
     }
 

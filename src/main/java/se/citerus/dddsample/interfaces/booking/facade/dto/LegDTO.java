@@ -3,7 +3,7 @@ package se.citerus.dddsample.interfaces.booking.facade.dto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * DTO for a leg in an itinerary.
@@ -15,6 +15,6 @@ public final class LegDTO implements Serializable {
   private final String voyageNumber;
   private final String from;
   private final String to;
-  private final Date loadTime;
-  private final Date unloadTime;
+  private final LocalDateTime loadTime;
+  private final LocalDateTime unloadTime;
 }

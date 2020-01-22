@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.fail;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.HAMBURG;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.STOCKHOLM;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.junit.Test;
 
@@ -14,31 +14,31 @@ public class CarrierMovementTest {
   @Test
   public void testConstructor() {
     try {
-      new CarrierMovement(null, null, new Date(), new Date());
+      new CarrierMovement(null, null, LocalDateTime.now(), LocalDateTime.now());
       fail("Should not accept null constructor arguments");
     } catch (NullPointerException expected) {}
 
     try {
-      new CarrierMovement(STOCKHOLM, null, new Date(), new Date());
+      new CarrierMovement(STOCKHOLM, null, LocalDateTime.now(), LocalDateTime.now());
       fail("Should not accept null constructor arguments");
     } catch (NullPointerException expected) {}
 
     // Legal
-    new CarrierMovement(STOCKHOLM, HAMBURG, new Date(), new Date());
+    new CarrierMovement(STOCKHOLM, HAMBURG, LocalDateTime.now(), LocalDateTime.now());
   }
 
   @Test
   public void testSameValueAsEqualsHashCode() {
-    long referenceTime = System.currentTimeMillis();
+    final LocalDateTime referenceTime = LocalDateTime.now();
 
-    // One could, in theory, use the same Date(referenceTime) for all of these movements
+    // One could, in theory, use the same LocalDateTime(referenceTime) for all of these movements
     // However, in practice, carrier movements will be initialized by different processes
-    // so we might have different Date that reference the same time, and we want to be
+    // so we might have different LocalDateTime that reference the same time, and we want to be
     // certain that sameValueAs does the right thing in that case.
-    CarrierMovement cm1 = new CarrierMovement(STOCKHOLM, HAMBURG, new Date(referenceTime), new Date(referenceTime));
-    CarrierMovement cm2 = new CarrierMovement(STOCKHOLM, HAMBURG, new Date(referenceTime), new Date(referenceTime));
-    CarrierMovement cm3 = new CarrierMovement(HAMBURG, STOCKHOLM, new Date(referenceTime), new Date(referenceTime));
-    CarrierMovement cm4 = new CarrierMovement(HAMBURG, STOCKHOLM, new Date(referenceTime), new Date(referenceTime));
+    CarrierMovement cm1 = new CarrierMovement(STOCKHOLM, HAMBURG, referenceTime, referenceTime);
+    CarrierMovement cm2 = new CarrierMovement(STOCKHOLM, HAMBURG, referenceTime, referenceTime);
+    CarrierMovement cm3 = new CarrierMovement(HAMBURG, STOCKHOLM, referenceTime, referenceTime);
+    CarrierMovement cm4 = new CarrierMovement(HAMBURG, STOCKHOLM, referenceTime, referenceTime);
 
     assertThat(cm1.sameValueAs(cm2)).isTrue();
     assertThat(cm2.sameValueAs(cm3)).isFalse();

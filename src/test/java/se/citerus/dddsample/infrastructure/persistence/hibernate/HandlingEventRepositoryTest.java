@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +23,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import static se.citerus.dddsample.application.util.DateTestUtil.ts;
 import se.citerus.dddsample.application.util.SampleDataGenerator;
 import se.citerus.dddsample.domain.model.cargo.Cargo;
 import se.citerus.dddsample.domain.model.cargo.CargoRepository;
@@ -69,8 +70,8 @@ public class HandlingEventRepositoryTest {
         Location location = locationRepository.find(new UnLocode("SESTO"));
 
         Cargo cargo = cargoRepository.find(new TrackingId("XYZ"));
-        Date completionTime = new Date(10);
-        Date registrationTime = new Date(20);
+        LocalDateTime completionTime = ts(10);
+        LocalDateTime registrationTime = ts(20);
         HandlingEvent event = new HandlingEvent(cargo, completionTime, registrationTime, HandlingEvent.Type.CLAIM, location);
 
         handlingEventRepository.store(event);
@@ -80,10 +81,10 @@ public class HandlingEventRepositoryTest {
         Map<String, Object> result = jdbcTemplate.queryForMap("select * from HandlingEvent where id = ?", getLongId(event));
 
         assertThat(result.get("CARGO_ID")).isEqualTo(1L);
-        Date completionDate = new Date(((Timestamp) result.get("COMPLETIONTIME")).getTime()); // equals call is not symmetric between java.sql.Timestamp and java.util.Date, so we should convert Timestamp Date
-        assertThat(completionDate).isEqualTo(new Date(10));
-        Date registrationDate = new Date(((Timestamp) result.get("REGISTRATIONTIME")).getTime()); // equals call is not symmetric between java.sql.Timestamp and java.util.Date, so we should convert Timestamp Date
-        assertThat(registrationDate).isEqualTo(new Date(20));
+        LocalDateTime completionDate = ((Timestamp) result.get("COMPLETIONTIME")).toLocalDateTime(); // equals call is not symmetric between java.sql.Timestamp and java.time.LocalDateTime, so we should convert Timestamp LocalDateTime
+        assertThat(completionDate).isEqualTo(ts(10));
+        LocalDateTime registrationDate = ((Timestamp) result.get("REGISTRATIONTIME")).toLocalDateTime(); // equals call is not symmetric between java.sql.Timestamp and java.time.LocalDateTime, so we should convert Timestamp LocalDateTime
+        assertThat(registrationDate).isEqualTo(ts(20));
         assertThat(result.get("TYPE")).isEqualTo("CLAIM");
         // TODO: the rest of the columns
     }

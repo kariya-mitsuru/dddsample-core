@@ -118,7 +118,7 @@ public final class CargoTrackingViewAdapter {
   }
 
   public String getEta() {
-    Date eta = cargo.delivery().estimatedTimeOfArrival();
+    LocalDateTime eta = cargo.delivery().estimatedTimeOfArrival();
 
     if (eta == null) return "?";
     else return new SimpleDateFormat(FORMAT).format(eta);

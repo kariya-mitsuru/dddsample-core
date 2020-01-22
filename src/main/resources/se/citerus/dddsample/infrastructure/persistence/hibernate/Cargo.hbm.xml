@@ -19,7 +19,7 @@
 
     <component name="delivery" lazy="true">
       <property name="misdirected" column="is_misdirected" not-null="true"/>
-      <property name="eta" column="eta" not-null="false"/>
+      <property name="estimatedTimeOfArrival" column="eta" not-null="false"/>
       <property name="calculatedAt" column="calculated_at" not-null="true"/>
       <property name="isUnloadedAtDestination" column="unloaded_at_dest" not-null="true"/>
 

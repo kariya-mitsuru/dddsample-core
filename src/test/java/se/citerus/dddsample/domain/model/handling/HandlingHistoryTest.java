@@ -3,11 +3,12 @@ package se.citerus.dddsample.domain.model.handling;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static se.citerus.dddsample.application.util.DateTestUtil.toDate;
+import static se.citerus.dddsample.application.util.DateTestUtil.ts;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.DALLAS;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.HONGKONG;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.SHANGHAI;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,12 +31,12 @@ public class HandlingHistoryTest {
   public void setUp() {
     cargo = new Cargo(new TrackingId("ABC"), new RouteSpecification(SHANGHAI, DALLAS, toDate("2009-04-01")));
     voyage = new Voyage.Builder(new VoyageNumber("X25"), HONGKONG).
-      addMovement(SHANGHAI, new Date(), new Date()).
-      addMovement(DALLAS, new Date(), new Date()).
+      addMovement(SHANGHAI, LocalDateTime.now(), LocalDateTime.now()).
+      addMovement(DALLAS, LocalDateTime.now(), LocalDateTime.now()).
       build();
-    event1 = new HandlingEvent(cargo, toDate("2009-03-05"), new Date(100), HandlingEvent.Type.LOAD, SHANGHAI, voyage);
-    event1duplicate = new HandlingEvent(cargo, toDate("2009-03-05"), new Date(200), HandlingEvent.Type.LOAD, SHANGHAI, voyage);
-    event2 = new HandlingEvent(cargo, toDate("2009-03-10"), new Date(150), HandlingEvent.Type.UNLOAD, DALLAS, voyage);
+    event1 = new HandlingEvent(cargo, toDate("2009-03-05"), ts(100), HandlingEvent.Type.LOAD, SHANGHAI, voyage);
+    event1duplicate = new HandlingEvent(cargo, toDate("2009-03-05"), ts(200), HandlingEvent.Type.LOAD, SHANGHAI, voyage);
+    event2 = new HandlingEvent(cargo, toDate("2009-03-10"), ts(150), HandlingEvent.Type.UNLOAD, DALLAS, voyage);
 
     handlingHistory = new HandlingHistory(asList(event2, event1, event1duplicate));
   }

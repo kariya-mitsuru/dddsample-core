@@ -4,14 +4,16 @@ import com.pathfinder.api.GraphTraversalService;
 import com.pathfinder.api.TransitEdge;
 import com.pathfinder.api.TransitPath;
 
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 public class GraphTraversalServiceImpl implements GraphTraversalService {
 
   private GraphDAO dao;
   private Random random;
   private static final long ONE_MIN_MS = 1000 * 60;
-  private static final long ONE_DAY_MS = ONE_MIN_MS * 60 * 24;
 
   public GraphTraversalServiceImpl(GraphDAO dao) {
     this.dao = dao;
@@ -21,7 +23,7 @@ public class GraphTraversalServiceImpl implements GraphTraversalService {
   public List<TransitPath> findShortestPath(final String originNode,
                                             final String destinationNode,
                                             final Properties limitations) {
-    Date date = nextDate(new Date());
+    LocalDateTime date = nextDate(LocalDateTime.now());
 
     List<String> allVertices = dao.listAllNodes();
     allVertices.remove(originNode);
@@ -35,8 +37,8 @@ public class GraphTraversalServiceImpl implements GraphTraversalService {
       final List<TransitEdge> transitEdges = new ArrayList<TransitEdge>(allVertices.size() - 1);
       final String firstLegTo = allVertices.get(0);
 
-      Date fromDate = nextDate(date);
-      Date toDate = nextDate(fromDate);
+      LocalDateTime fromDate = nextDate(date);
+      LocalDateTime toDate = nextDate(fromDate);
       date = nextDate(toDate);
 
       transitEdges.add(new TransitEdge(
@@ -65,8 +67,8 @@ public class GraphTraversalServiceImpl implements GraphTraversalService {
     return candidates;
   }
 
-  private Date nextDate(Date date) {
-    return new Date(date.getTime() + ONE_DAY_MS + (random.nextInt(1000) - 500) * ONE_MIN_MS);
+  private LocalDateTime nextDate(LocalDateTime date) {
+    return date.plusDays(1).plusMinutes(random.nextInt(1000) - 500);
   }
 
   private int getRandomNumberOfCandidates() {

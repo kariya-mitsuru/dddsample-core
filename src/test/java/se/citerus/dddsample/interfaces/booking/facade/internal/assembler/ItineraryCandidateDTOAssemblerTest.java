@@ -12,9 +12,9 @@ import static se.citerus.dddsample.domain.model.location.SampleLocations.STOCKHO
 import static se.citerus.dddsample.domain.model.location.SampleLocations.TOKYO;
 import static se.citerus.dddsample.domain.model.voyage.SampleVoyages.CM001;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -40,8 +40,8 @@ public class ItineraryCandidateDTOAssemblerTest {
 
     final Itinerary itinerary = new Itinerary(
       Arrays.asList(
-        new Leg(CM001, origin, SHANGHAI, new Date(), new Date()),
-        new Leg(CM001, ROTTERDAM, destination, new Date(), new Date())
+        new Leg(CM001, origin, SHANGHAI, LocalDateTime.now(), LocalDateTime.now()),
+        new Leg(CM001, ROTTERDAM, destination, LocalDateTime.now(), LocalDateTime.now())
       )
     );
 
@@ -64,8 +64,8 @@ public class ItineraryCandidateDTOAssemblerTest {
     final ItineraryCandidateDTOAssembler assembler = new ItineraryCandidateDTOAssembler();
 
     final List<LegDTO> legs = new ArrayList<LegDTO>();
-    legs.add(new LegDTO("CM001", "AAAAA", "BBBBB", new Date(), new Date()));
-    legs.add(new LegDTO("CM001", "BBBBB", "CCCCC", new Date(), new Date()));
+    legs.add(new LegDTO("CM001", "AAAAA", "BBBBB", LocalDateTime.now(), LocalDateTime.now()));
+    legs.add(new LegDTO("CM001", "BBBBB", "CCCCC", LocalDateTime.now(), LocalDateTime.now()));
 
     final LocationRepository locationRepository = mock(LocationRepository.class);
     when(locationRepository.find(new UnLocode("AAAAA"))).thenReturn(HONGKONG);

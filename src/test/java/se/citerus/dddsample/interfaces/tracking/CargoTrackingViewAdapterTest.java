@@ -1,12 +1,13 @@
 package se.citerus.dddsample.interfaces.tracking;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static se.citerus.dddsample.application.util.DateTestUtil.ts;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.HANGZOU;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.HELSINKI;
 import static se.citerus.dddsample.domain.model.voyage.SampleVoyages.CM001;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -25,13 +26,13 @@ public class CargoTrackingViewAdapterTest {
 
   @Test
   public void testCreate() {
-    Cargo cargo = new Cargo(new TrackingId("XYZ"), new RouteSpecification(HANGZOU, HELSINKI, new Date()));
+    Cargo cargo = new Cargo(new TrackingId("XYZ"), new RouteSpecification(HANGZOU, HELSINKI, LocalDateTime.now()));
 
     List<HandlingEvent> events = new ArrayList<HandlingEvent>();
-    events.add(new HandlingEvent(cargo, new Date(1), new Date(2), HandlingEvent.Type.RECEIVE, HANGZOU));
+    events.add(new HandlingEvent(cargo, ts(1), ts(2), HandlingEvent.Type.RECEIVE, HANGZOU));
 
-    events.add(new HandlingEvent(cargo, new Date(3), new Date(4), HandlingEvent.Type.LOAD, HANGZOU, CM001));
-    events.add(new HandlingEvent(cargo, new Date(5), new Date(6), HandlingEvent.Type.UNLOAD, HELSINKI, CM001));
+    events.add(new HandlingEvent(cargo, ts(3), ts(4), HandlingEvent.Type.LOAD, HANGZOU, CM001));
+    events.add(new HandlingEvent(cargo, ts(5), ts(6), HandlingEvent.Type.UNLOAD, HELSINKI, CM001));
 
     cargo.deriveDeliveryProgress(new HandlingHistory(events));
 

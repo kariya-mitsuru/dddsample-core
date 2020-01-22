@@ -11,7 +11,11 @@ import se.citerus.dddsample.domain.model.location.Location;
 
 import static se.citerus.dddsample.domain.model.location.SampleLocations.*;
 
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * CargoRepositoryInMem implement the CargoRepository interface but is a test
@@ -73,7 +77,7 @@ public class CargoRepositoryInMem implements CargoRepository {
                                                        Location destination,
                                                        HandlingHistory handlingHistory) {
 
-        final RouteSpecification routeSpecification = new RouteSpecification(origin, destination, new Date());
+        final RouteSpecification routeSpecification = new RouteSpecification(origin, destination, LocalDateTime.now());
         final Cargo cargo = new Cargo(trackingId, routeSpecification);
         cargo.deriveDeliveryProgress(handlingHistory);
 

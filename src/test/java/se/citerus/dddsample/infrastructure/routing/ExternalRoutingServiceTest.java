@@ -13,8 +13,8 @@ import se.citerus.dddsample.domain.model.voyage.VoyageNumber;
 import se.citerus.dddsample.domain.model.voyage.VoyageRepository;
 import se.citerus.dddsample.infrastructure.persistence.inmemory.LocationRepositoryInMem;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,7 +53,7 @@ public class ExternalRoutingServiceTest {
   @Test
   public void testCalculatePossibleRoutes() {
     TrackingId trackingId = new TrackingId("ABC");
-    RouteSpecification routeSpecification = new RouteSpecification(HONGKONG, HELSINKI, new Date());
+    RouteSpecification routeSpecification = new RouteSpecification(HONGKONG, HELSINKI, LocalDateTime.now());
     Cargo cargo = new Cargo(trackingId, routeSpecification);
 
     when(voyageRepository.find(isA(VoyageNumber.class))).thenReturn(SampleVoyages.CM002);

@@ -15,9 +15,9 @@ import se.citerus.dddsample.interfaces.booking.facade.dto.RouteCandidateDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +42,7 @@ public final class CargoAdminController {
 
     @InitBinder
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd HH:mm"), false));
+        binder.registerCustomEditor(LocalDateTime.class, new CustomDateEditor(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm"), false));
     }
 
     @RequestMapping("/registration")
@@ -62,8 +62,8 @@ public final class CargoAdminController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void register(HttpServletRequest request, HttpServletResponse response,
-                         RegistrationCommand command) throws Exception {
-        Date arrivalDeadline = new SimpleDateFormat("dd/MM/yyyy").parse(command.getArrivalDeadline());
+                         RegistrationCommand command) {
+        LocalDateTime arrivalDeadline = DateTimeFormatter.ofPattern("dd/MM/uuuu").parse(command.getArrivalDeadline());
         String trackingId = bookingServiceFacade.bookNewCargo(
                 command.getOriginUnlocode(), command.getDestinationUnlocode(), arrivalDeadline
         );

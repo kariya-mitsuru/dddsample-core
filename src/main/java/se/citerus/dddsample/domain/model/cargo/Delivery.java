@@ -16,7 +16,7 @@ import se.citerus.dddsample.domain.model.voyage.Voyage;
 import se.citerus.dddsample.domain.shared.DomainObjectUtils;
 import se.citerus.dddsample.domain.shared.ValueObject;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 
 /**
@@ -34,17 +34,19 @@ public class Delivery implements ValueObject<Delivery> {
   private Voyage currentVoyage;
   @Getter @Accessors(fluent = false)
   private boolean misdirected;
-  private Date eta;
+  @Getter
+  private LocalDateTime estimatedTimeOfArrival;
   @Getter
   private HandlingActivity nextExpectedActivity;
   @Getter
   private boolean isUnloadedAtDestination;
   @Getter
   private RoutingStatus routingStatus;
-  private Date calculatedAt;
+  @Getter
+  private LocalDateTime calculatedAt;
   private HandlingEvent lastEvent;
 
-  private static final Date ETA_UNKOWN = null;
+  private static final LocalDateTime ETA_UNKOWN = null;
   private static final HandlingActivity NO_ACTIVITY = null;
 
   /**
@@ -83,7 +85,7 @@ public class Delivery implements ValueObject<Delivery> {
    * @param routeSpecification route specification
    */
   private Delivery(HandlingEvent lastEvent, Itinerary itinerary, RouteSpecification routeSpecification) {
-    this.calculatedAt = new Date();
+    this.calculatedAt = LocalDateTime.now();
     this.lastEvent = lastEvent;
 
     this.misdirected = calculateMisdirectionStatus(itinerary);
@@ -91,7 +93,7 @@ public class Delivery implements ValueObject<Delivery> {
     this.transportStatus = calculateTransportStatus();
     this.lastKnownLocation = calculateLastKnownLocation();
     this.currentVoyage = calculateCurrentVoyage();
-    this.eta = calculateEta(itinerary);
+    this.estimatedTimeOfArrival = calculateEta(itinerary);
     this.nextExpectedActivity = calculateNextExpectedActivity(routeSpecification, itinerary);
     this.isUnloadedAtDestination = calculateUnloadedAtDestination(routeSpecification);
   }
@@ -108,24 +110,6 @@ public class Delivery implements ValueObject<Delivery> {
    */
   public Voyage currentVoyage() {
     return DomainObjectUtils.nullSafe(currentVoyage, Voyage.NONE);
-  }
-
-  /**
-   * @return Estimated time of arrival
-   */
-  public Date estimatedTimeOfArrival() {
-    if (eta != ETA_UNKOWN) {
-      return new Date(eta.getTime());
-    } else {
-      return ETA_UNKOWN;
-    }
-  }
-
-  /**
-   * @return When this delivery was calculated.
-   */
-  public Date calculatedAt() {
-    return new Date(calculatedAt.getTime());
   }
 
   // TODO add currentCarrierMovement (?)
@@ -177,7 +161,7 @@ public class Delivery implements ValueObject<Delivery> {
     }
   }
 
-  private Date calculateEta(Itinerary itinerary) {
+  private LocalDateTime calculateEta(Itinerary itinerary) {
     if (onTrack()) {
       return itinerary.finalArrivalDate();
     } else {
