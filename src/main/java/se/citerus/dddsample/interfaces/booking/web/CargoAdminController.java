@@ -15,6 +15,7 @@ import se.citerus.dddsample.interfaces.booking.facade.dto.RouteCandidateDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public final class CargoAdminController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void register(HttpServletRequest request, HttpServletResponse response,
                          RegistrationCommand command) throws Exception {
-        LocalDateTime arrivalDeadline = LocalDateTime.parse(command.getArrivalDeadline(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+        LocalDateTime arrivalDeadline = LocalDate.parse(command.getArrivalDeadline(), DateTimeFormatter.ofPattern("dd/MM/uuuu")).atStartOfDay();
         String trackingId = bookingServiceFacade.bookNewCargo(
                 command.getOriginUnlocode(), command.getDestinationUnlocode(), arrivalDeadline
         );
