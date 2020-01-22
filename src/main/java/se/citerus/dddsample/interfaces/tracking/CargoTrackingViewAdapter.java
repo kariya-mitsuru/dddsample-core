@@ -185,7 +185,7 @@ public final class CargoTrackingViewAdapter {
      * @return Time when the event was completed.
      */
     public String getTime() {
-      return DateTimeFormatter.ofPattern(FORMAT).format(handlingEvent.completionTime().atZone(zoneId));
+      return DateTimeFormatter.ofPattern(FORMAT).format(handlingEvent.completionTime().atZone(ZoneId.systemDefault()).withZoneSameInstant(zoneId));
     }
 
     /**
