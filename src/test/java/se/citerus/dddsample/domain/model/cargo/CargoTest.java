@@ -1,6 +1,7 @@
 package se.citerus.dddsample.domain.model.cargo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static se.citerus.dddsample.application.util.DateTestUtil.ts;
 import static se.citerus.dddsample.domain.model.cargo.RoutingStatus.MISROUTED;
 import static se.citerus.dddsample.domain.model.cargo.RoutingStatus.NOT_ROUTED;
 import static se.citerus.dddsample.domain.model.cargo.RoutingStatus.ROUTED;
@@ -341,7 +342,4 @@ public class CargoTest {
     final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("uuuu-MM-dd");
     return dateFormat.parse(isoFormat);
   }
-
-  private static LocalDateTime ts(long ms) {
-    return LocalDate.ofEpochSecond(0, ms * 1000 * 1000, ZoneId.systemDefault());
 }
