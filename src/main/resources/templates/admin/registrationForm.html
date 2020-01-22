@@ -40,7 +40,7 @@
             <tr>
                 <td>Arrival deadline:</td>
                 <td>
-                    <input name="arrivalDeadline" type="text" size="10" id="arrivalDeadline" th:value="${#dates.format(#dates.createNow(),'dd/MM/yyyy')}"/>
+                    <input name="arrivalDeadline" type="text" size="10" id="arrivalDeadline" th:value="${#temporals.format(#temporals.createNow(),'dd/MM/uuuu')}"/>
                     <p class="glyphicon glyphicon-calendar"></p>
                 </td>
             </tr>

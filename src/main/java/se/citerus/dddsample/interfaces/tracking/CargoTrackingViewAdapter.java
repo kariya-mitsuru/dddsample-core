@@ -219,7 +219,7 @@ public final class CargoTrackingViewAdapter {
           args = new Object[] {
             handlingEvent.voyage().voyageNumber().idString(),
             handlingEvent.location().name(),
-            handlingEvent.completionTime()
+            DateTimeFormatter.ofPattern(FORMAT).format(handlingEvent.completionTime())
           };
           break;
 
@@ -227,7 +227,7 @@ public final class CargoTrackingViewAdapter {
         case CLAIM:
           args = new Object[] {
             handlingEvent.location().name(),
-            handlingEvent.completionTime()
+            DateTimeFormatter.ofPattern(FORMAT).format(handlingEvent.completionTime())
           };
           break;
 
