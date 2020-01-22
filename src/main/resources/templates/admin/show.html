@@ -30,7 +30,7 @@
         </tr>
         <tr>
             <td>Arrival deadline</td>
-            <td th:text="${#dates.format(cargo.arrivalDeadline,'dd/MM/yyyy')}"/>
+            <td th:text="${#temporals.format(cargo.arrivalDeadline,'dd/MM/uuuu')}"/>
         </tr>
         </tbody>
     </table>
@@ -53,9 +53,9 @@
             <tr th:each="leg : ${cargo.legs}">
                 <td th:text="${leg.voyageNumber}"></td>
                 <td th:text="${leg.from}"></td>
-                <td th:text="${#dates.format(leg.loadTime,'dd/MM/yyyy')}"/>
+                <td th:text="${#temporals.format(leg.loadTime,'dd/MM/uuuu')}"/>
                 <td th:text="${leg.to}"></td>
-                <td th:text="${#dates.format(leg.unloadTime,'dd/MM/yyyy')}"/>
+                <td th:text="${#temporals.format(leg.unloadTime,'dd/MM/uuuu')}"/>
             </tr>
             </tbody>
         </table>
