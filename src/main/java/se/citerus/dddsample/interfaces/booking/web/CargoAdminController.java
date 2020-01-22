@@ -63,7 +63,7 @@ public final class CargoAdminController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void register(HttpServletRequest request, HttpServletResponse response,
                          RegistrationCommand command) {
-        LocalDateTime arrivalDeadline = DateTimeFormatter.ofPattern("dd/MM/uuuu").parse(command.getArrivalDeadline());
+        LocalDateTime arrivalDeadline = LocalDateTime.parse(command.getArrivalDeadline(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
         String trackingId = bookingServiceFacade.bookNewCargo(
                 command.getOriginUnlocode(), command.getDestinationUnlocode(), arrivalDeadline
         );
