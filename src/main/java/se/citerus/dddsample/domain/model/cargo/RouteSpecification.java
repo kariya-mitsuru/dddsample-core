@@ -47,6 +47,6 @@ public class RouteSpecification implements Specification<Itinerary>, ValueObject
     return itinerary != null &&
            origin().sameIdentityAs(itinerary.initialDepartureLocation()) &&
            destination().sameIdentityAs(itinerary.finalArrivalLocation()) &&
-           arrivalDeadline().after(itinerary.finalArrivalDate());
+           arrivalDeadline().isAfter(itinerary.finalArrivalDate());
   }
 }

@@ -25,7 +25,7 @@ public final class DateTestUtil {
    * @return LocalDateTime representation
    */
   public static LocalDateTime toDate(final String date, final String time) {
-    return DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm").parse(date + " " + time);
+    return LocalDateTime.parse(date + " " + time, DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm"));
   }
 
   /**

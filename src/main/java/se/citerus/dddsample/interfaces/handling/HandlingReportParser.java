@@ -58,7 +58,7 @@ public class HandlingReportParser {
   public static LocalDateTime parseDate(final String completionTime, final List<String> errors) {
     LocalDateTime date;
     try {
-      date = DateTimeFormatter.ofPattern(ISO_8601_FORMAT).parse(completionTime);
+      date = LocalDateTime.parse(completionTime, DateTimeFormatter.ofPattern(ISO_8601_FORMAT));
     } catch (DateTimeParseException e) {
       errors.add("Invalid date format: " + completionTime + ", must be on ISO 8601 format: " + ISO_8601_FORMAT);
       date = null;
@@ -82,6 +82,6 @@ public class HandlingReportParser {
       return null;
     }
 
-    return completionTime.toGregorianCalendar().getTime();
+    return completionTime.toGregorianCalendar().toZonedDateTime().toLocalDateTime();
   }
 }
