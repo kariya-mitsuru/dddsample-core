@@ -17,6 +17,7 @@ import static se.citerus.dddsample.domain.model.location.SampleLocations.SHANGHA
 import static se.citerus.dddsample.domain.model.location.SampleLocations.STOCKHOLM;
 import static se.citerus.dddsample.domain.model.location.SampleLocations.TOKYO;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -340,6 +341,6 @@ public class CargoTest {
    */
   private static LocalDateTime getDate(String isoFormat) throws DateTimeParseException {
     final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("uuuu-MM-dd");
-    return LocalDateTime.parse(isoFormat, dateFormat);
+    return LocalDate.parse(isoFormat, dateFormat).atStartOfDay();
   }
 }
