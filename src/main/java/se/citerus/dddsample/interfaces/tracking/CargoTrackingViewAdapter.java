@@ -8,7 +8,12 @@ import se.citerus.dddsample.domain.model.handling.HandlingEvent;
 import se.citerus.dddsample.domain.model.location.Location;
 import se.citerus.dddsample.domain.model.voyage.Voyage;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.*;
 
 /**
@@ -20,8 +25,8 @@ public final class CargoTrackingViewAdapter {
   private final MessageSource messageSource;
   private final Locale locale;
   private final List<HandlingEventViewAdapter> events;
-  private final String FORMAT = "yyyy-MM-dd hh:mm";
-  private final TimeZone timeZone;
+  private final String FORMAT = "uuuu-MM-dd hh:mm";
+  private final ZoneId zoneId;
 
     /**
    * Constructor.
@@ -32,7 +37,7 @@ public final class CargoTrackingViewAdapter {
    * @param handlingEvents
    */
   public CargoTrackingViewAdapter(Cargo cargo, MessageSource messageSource, Locale locale, List<HandlingEvent> handlingEvents) {
-    this(cargo, messageSource, locale, handlingEvents, TimeZone.getDefault());
+    this(cargo, messageSource, locale, handlingEvents, ZoneId.systemDefault());
   }
 
     /**
@@ -42,12 +47,13 @@ public final class CargoTrackingViewAdapter {
      * @param messageSource
      * @param locale
      * @param handlingEvents
+     * @param zoneId
      */
-    public CargoTrackingViewAdapter(Cargo cargo, MessageSource messageSource, Locale locale, List<HandlingEvent> handlingEvents, TimeZone tz) {
+    public CargoTrackingViewAdapter(Cargo cargo, MessageSource messageSource, Locale locale, List<HandlingEvent> handlingEvents, ZoneId zoneId) {
       this.messageSource = messageSource;
       this.locale = locale;
       this.cargo = cargo;
-      this.timeZone = tz;
+      this.zoneId = zoneId;
 
       this.events = new ArrayList<HandlingEventViewAdapter>(handlingEvents.size());
         for (HandlingEvent handlingEvent : handlingEvents) {
@@ -121,7 +127,7 @@ public final class CargoTrackingViewAdapter {
     LocalDateTime eta = cargo.delivery().estimatedTimeOfArrival();
 
     if (eta == null) return "?";
-    else return new SimpleDateFormat(FORMAT).format(eta);
+    else return DateTimeFormatter.ofPattern(FORMAT).format(eta);
   }
 
   public String getNextExpectedActivity() {
@@ -179,9 +185,7 @@ public final class CargoTrackingViewAdapter {
      * @return Time when the event was completed.
      */
     public String getTime() {
-      final SimpleDateFormat sdf = new SimpleDateFormat(FORMAT);
-      sdf.setTimeZone(timeZone);
-      return sdf.format(handlingEvent.completionTime());
+      return DateTimeFormatter.ofPattern(FORMAT).format(handlingEvent.completionTime().atZone(zoneId));
     }
 
     /**
