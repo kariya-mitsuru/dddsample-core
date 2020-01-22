@@ -23,7 +23,7 @@ public class Itinerary implements ValueObject<Itinerary> {
   private List<Leg> legs = Collections.emptyList();
 
   static final Itinerary EMPTY_ITINERARY = new Itinerary();
-  private static final LocalDateTime END_OF_DAYS = new LocalDateTime.MAX;
+  private static final LocalDateTime END_OF_DAYS = LocalDateTime.MAX;
 
   /**
    * Constructor.
